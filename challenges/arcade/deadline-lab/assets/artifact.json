@@ -1,0 +1,1 @@
+{"jobs":[{"id":"A","duration":9,"weight":5},{"id":"B","duration":5,"weight":5},{"id":"C","duration":2,"weight":5},{"id":"D","duration":7,"weight":2},{"id":"E","duration":8,"weight":4},{"id":"F","duration":5,"weight":2}],"precedence":[["A","D"],["B","F"]]}

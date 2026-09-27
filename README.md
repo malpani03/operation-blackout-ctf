@@ -16,6 +16,23 @@ This repository contains the completed Operation Blackout challenge material, gr
 | S5 | Finale | Nightjar's Nest | Pwn | [Open challenge](challenges/pwn/nightjars-nest/) |
 | EP | Finale | Epilogue | Detection Engineering | [Open challenge](challenges/detection-engineering/epilogue/) |
 
+## Independent Arcade
+
+All ten standalone arcade challenges were also solved and documented. They can be reproduced independently of the main-chain handovers.
+
+| Challenge | Category | Points | Material |
+| --- | --- | ---: | --- |
+| Route Zero | Graph search | 25 | [Open challenge](challenges/arcade/route-zero/) |
+| Pixel Ledger | Nonogram | 75 | [Open challenge](challenges/arcade/pixel-ledger/) |
+| Deadline Lab | Scheduling | 75 | [Open challenge](challenges/arcade/deadline-lab/) |
+| Double Entry | Accounting | 100 | [Open challenge](challenges/arcade/double-entry/) |
+| Beacon Six | Signal analysis | 150 | [Open challenge](challenges/arcade/beacon-six/) |
+| Terminal Echo | Terminal emulation | 150 | [Open challenge](challenges/arcade/terminal-echo/) |
+| Custodian Records | Secret sharing | 200 | [Open challenge](challenges/arcade/custodian-records/) |
+| Switchboard | Boolean logic | 200 | [Open challenge](challenges/arcade/switchboard/) |
+| Device Messages | RSA | 300 | [Open challenge](challenges/arcade/device-messages/) |
+| Afterlife | Cellular automata | 200 | [Open challenge](challenges/arcade/afterlife/) |
+
 ## Progression
 
 ```text

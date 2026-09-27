@@ -1,0 +1,1 @@
+{"width":8,"stream":"\u001b[1Ga\bA\u001b[2Gm\bE\u001b[3Gl\bY\u001b[4Gn\bI\u001b[5Gc\bO\u001b[6Gc\bA\u001b[7Gq\bK\u001b[8Gr\bN","rules":"ESC[nG moves to 1-based column n; backspace moves left without erasing; printable characters overwrite cells."}

@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HX-1977 Final Transmission — Operation Blackout Case Dossier</title>
+<style>
+  :root {
+    --ink: #13212b;
+    --muted: #52616b;
+    --paper: #f8f6ef;
+    --panel: #eef1ec;
+    --navy: #0c2333;
+    --cyan: #1d7481;
+    --gold: #b88932;
+    --red: #9f3b32;
+    --green: #2d6751;
+    --line: #c9cec8;
+    --code: #11222c;
+  }
+
+  * { box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 17mm 15mm 18mm;
+    @bottom-left {
+      content: "HX-1977  •  CALLSIGN RUPESH  •  FINAL DOSSIER";
+      color: #64727a;
+      font: 8pt "Segoe UI", Arial, sans-serif;
+      letter-spacing: .08em;
+    }
+    @bottom-right {
+      content: counter(page) " / " counter(pages);
+      color: #64727a;
+      font: 8pt "Segoe UI", Arial, sans-serif;
+    }
+  }
+
+  @page cover { margin: 0; }
+
+  html { background: #d9ddda; }
+  body {
+    margin: 0 auto;
+    max-width: 210mm;
+    background: var(--paper);
+    color: var(--ink);
+    font: 10.2pt/1.48 "Segoe UI", Inter, Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: var(--cyan); text-decoration: none; }
+  p { margin: 0 0 8pt; orphans: 3; widows: 3; }
+  ul, ol { margin: 5pt 0 9pt 19pt; padding: 0; }
+  li { margin: 2.5pt 0; }
+  strong { color: #0e2634; }
+  small { color: var(--muted); }
+  .nowrap { white-space: nowrap; }
+  .mono { font-family: Consolas, "SFMono-Regular", monospace; }
+
+  h1, h2, h3, h4 { font-family: "Segoe UI", Inter, Arial, sans-serif; page-break-after: avoid; }
+  h1 { font-size: 25pt; line-height: 1.08; margin: 0 0 7pt; color: var(--navy); }
+  h2 { font-size: 17pt; line-height: 1.2; margin: 0 0 10pt; color: var(--navy); }
+  h3 { font-size: 11.5pt; margin: 13pt 0 5pt; color: var(--cyan); text-transform: uppercase; letter-spacing: .055em; }
+  h4 { font-size: 10.2pt; margin: 10pt 0 4pt; color: var(--navy); }
+
+  .cover {
+    page: cover;
+    width: 210mm;
+    height: 297mm;
+    padding: 22mm 20mm 18mm;
+    background:
+      linear-gradient(140deg, rgba(29,116,129,.22), transparent 42%),
+      linear-gradient(320deg, rgba(184,137,50,.16), transparent 36%),
+      #0b1d29;
+    color: #edf3f0;
+    position: relative;
+    overflow: hidden;
+    break-after: page;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: 13mm;
+    border: 1px solid rgba(219,229,224,.22);
+    pointer-events: none;
+  }
+  .cover .eyebrow { color: #77c0c8; font-size: 9pt; letter-spacing: .28em; text-transform: uppercase; margin: 12mm 0 13mm; }
+  .cover h1 { color: white; font-size: 38pt; max-width: 155mm; letter-spacing: -.02em; }
+  .cover .subtitle { font-size: 14pt; color: #b7cbc9; max-width: 145mm; margin-top: 8pt; }
+  .cover .rule { width: 46mm; height: 3px; background: var(--gold); margin: 13mm 0 11mm; }
+  .cover .case-meta { display: grid; grid-template-columns: 36mm 1fr; gap: 5pt 11mm; max-width: 135mm; font-size: 10.5pt; }
+  .cover .case-meta dt { color: #72abb2; text-transform: uppercase; letter-spacing: .09em; }
+  .cover .case-meta dd { margin: 0; color: #f3f5f2; }
+  .cover .transmission {
+    position: absolute; left: 20mm; right: 20mm; bottom: 25mm;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid rgba(219,229,224,.24); padding-top: 7mm;
+  }
+  .cover .stamp { color: #e5be6f; letter-spacing: .12em; font-weight: 700; font-size: 9pt; }
+  .cover .classification { color: #91a4a5; text-align: right; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .12em; }
+
+  main { padding: 0; }
+  .page { break-before: page; }
+  .section { break-before: page; }
+  .section-head {
+    border-top: 4px solid var(--cyan);
+    padding-top: 8pt;
+    margin-bottom: 10pt;
+  }
+  .section-head .kicker { color: var(--gold); font-weight: 700; font-size: 8.5pt; letter-spacing: .12em; text-transform: uppercase; }
+  .section-head .meta { color: var(--muted); font-size: 9pt; }
+
+  .lead { font-size: 11.3pt; line-height: 1.55; color: #263d48; }
+  .callout {
+    border-left: 4px solid var(--cyan);
+    background: var(--panel);
+    padding: 9pt 11pt;
+    margin: 9pt 0 11pt;
+    break-inside: avoid;
+  }
+  .callout.gold { border-left-color: var(--gold); }
+  .callout.red { border-left-color: var(--red); }
+  .callout.green { border-left-color: var(--green); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .status-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7pt; margin: 10pt 0 14pt; }
+  .status-card { background: #e8ede8; padding: 9pt; border-top: 3px solid var(--cyan); break-inside: avoid; }
+  .status-card .number { display: block; font-size: 19pt; font-weight: 700; color: var(--navy); }
+  .status-card .label { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+
+  table { width: 100%; border-collapse: collapse; margin: 7pt 0 12pt; font-size: 8.8pt; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  th { background: var(--navy); color: #f5f7f5; text-align: left; padding: 5.5pt 6pt; font-weight: 600; }
+  td { border-bottom: 1px solid var(--line); padding: 5pt 6pt; vertical-align: top; }
+  tbody tr:nth-child(even) td { background: rgba(230,235,231,.52); }
+  td code { font-size: 7.8pt; }
+
+  pre {
+    background: var(--code);
+    color: #e6efec;
+    padding: 9pt 10pt;
+    border-radius: 3px;
+    font: 7.7pt/1.4 Consolas, "SFMono-Regular", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+    margin: 6pt 0 11pt;
+  }
+  code { font-family: Consolas, "SFMono-Regular", monospace; color: #123c4b; }
+  pre code { color: inherit; }
+
+  .proof {
+    background: #0d2029;
+    border: 1px solid #29414a;
+    border-left: 5px solid #3b9875;
+    color: #e6f3ed;
+    padding: 9pt 11pt;
+    font: 8pt/1.45 Consolas, monospace;
+    margin: 8pt 0 12pt;
+    break-inside: avoid;
+  }
+  .proof::before { content: "VERIFIED RESPONSE"; display: block; color: #68c49a; font: 700 7.5pt "Segoe UI", sans-serif; letter-spacing: .12em; margin-bottom: 5pt; }
+  .proof.warn { border-left-color: #d2a14c; }
+  .proof.warn::before { content: "FAILED CONTROL / CORRECTIVE EVIDENCE"; color: #e0b55f; }
+
+  .chain { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5pt; margin: 12pt 0; }
+  .chain .node { padding: 8pt 6pt; background: #e6ece8; border-top: 3px solid var(--cyan); font-size: 8.4pt; min-height: 50pt; position: relative; }
+  .chain .node strong { display: block; font-size: 9pt; margin-bottom: 3pt; }
+  .chain .node::after { content: "→"; position: absolute; right: -9pt; top: 19pt; color: var(--gold); font-weight: 800; z-index: 2; }
+  .chain .node:nth-child(5n)::after, .chain .node:last-child::after { content: ""; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; }
+  .mini { font-size: 8.7pt; color: var(--muted); }
+  .figure { margin: 9pt 0 12pt; break-inside: avoid; }
+  .figure img { width: 100%; max-height: 148mm; object-fit: contain; background: #111d23; border: 1px solid #bfc8c5; }
+  .figure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; }
+  figcaption { color: var(--muted); font-size: 8pt; margin-top: 4pt; line-height: 1.35; }
+
+  .toc { columns: 2; column-gap: 14mm; margin-top: 12pt; }
+  .toc a { display: flex; justify-content: space-between; gap: 8pt; border-bottom: 1px dotted #bac2be; padding: 5pt 0; color: var(--ink); break-inside: avoid; }
+  .toc .n { color: var(--gold); min-width: 14mm; font-weight: 700; }
+  .toc .t { flex: 1; }
+  .toc .c { color: var(--muted); font-size: 8.4pt; }
+
+  .tool-row { display: grid; grid-template-columns: 31mm 1fr; gap: 8pt; margin: 5pt 0; break-inside: avoid; }
+  .tool-row .tool { font-weight: 700; color: var(--navy); }
+
+  .source-note { border-top: 1px solid var(--line); margin-top: 13pt; padding-top: 6pt; color: var(--muted); font-size: 8pt; }
+  .flag { color: var(--green); font-weight: 700; overflow-wrap: anywhere; }
+  .tag { display: inline-block; border: 1px solid #9aaca8; padding: 1pt 5pt; margin-right: 3pt; border-radius: 10pt; color: #435b62; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .04em; }
+  .signature { margin-top: 18pt; display: grid; grid-template-columns: 1fr 1fr; gap: 20mm; }
+  .signature div { border-top: 1px solid #738087; padding-top: 5pt; color: var(--muted); font-size: 8.5pt; }
+
+  .appendix h3 { color: var(--navy); text-transform: none; letter-spacing: 0; }
+  .tight td, .tight th { padding: 4pt 5pt; }
+  .arcade-case { break-before: page; }
+  .grid-art {
+    display: inline-block; background: var(--code); color: #eef6f2;
+    padding: 8pt 12pt; font: 12pt/1.25 Consolas, monospace;
+    letter-spacing: .18em; margin: 6pt 0 10pt; break-inside: avoid;
+  }
+
+  @media print {
+    html, body { background: var(--paper); max-width: none; }
+    a { color: inherit; }
+  }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="eyebrow">Final Transmission / Case File HX-1977</div>
+  <h1>Operation Blackout</h1>
+  <div class="subtitle">Consolidated technical investigation dossier: from first contact to confirmed compromise</div>
+  <div class="rule"></div>
+  <dl class="case-meta">
+    <dt>Callsign</dt><dd><strong style="color:white">rupesh</strong></dd>
+    <dt>Investigator</dt><dd>Rupesh Malpani</dd>
+    <dt>Case</dt><dd>HX-1977 / Operation Blackout</dd>
+    <dt>Scope</dt><dd>Main chain, both branches, finale, epilogue and Independent Arcade</dd>
+    <dt>Status</dt><dd>19 of 19 challenges solved, verified and documented</dd>
+    <dt>Issued</dt><dd>27 September 2026 / Asia–Calcutta (IST)</dd>
+    <dt>Document</dt><dd>HX-1977-FINAL-DOSSIER / version 1.0</dd>
+  </dl>
+  <div class="transmission">
+    <div class="stamp">EVIDENCE PRESERVED · METHODS REPRODUCIBLE · OUTPUT VERIFIED</div>
+    <div class="classification">CTF competition submission<br>technical handling record</div>
+  </div>
+</section>
+
+<main>
+<section class="page" id="control">
+  <div class="section-head">
+    <div class="kicker">Document control</div>
+    <h1>Transmission record</h1>
+  </div>
+  <p class="lead">This dossier consolidates the challenge-level write-ups retained in the repository. It records the reasoning chain, evidence pivots, execution details, validation controls, tooling, AI assistance and final proof for each solved stage. The stage write-ups remain the detailed technical record; this document is the navigable case-level account.</p>
+
+  <table>
+    <tr><th>Field</th><th>Recorded value</th></tr>
+    <tr><td>Callsign / player ID</td><td><strong>rupesh</strong> — confirmed in the authenticated case state and Tunnel bootstrap evidence</td></tr>
+    <tr><td>Case reference</td><td>HX-1977</td></tr>
+    <tr><td>Submission window</td><td>Flags close 20:00 IST; dossier closes 22:00 IST; 27 September 2026</td></tr>
+    <tr><td>Covered stages</td><td>Nine main-chain/branch/finale stages plus all ten Independent Arcade challenges</td></tr>
+    <tr><td>Repository convention</td><td><code>challenges/&lt;category&gt;/&lt;challenge&gt;/{writeup.md,assets,analysis,scripts}</code></td></tr>
+    <tr><td>Evidence policy</td><td>Original acquisitions retained under <code>assets/</code>; transformations written under <code>analysis/</code>; reproducible helpers retained under <code>scripts/</code>.</td></tr>
+    <tr><td>Validation standard</td><td>A readable candidate or plausible theory was not accepted as proof. Proof required hashes, format checks, cryptographic verification, deterministic replay, live service acceptance, held-out evaluation or case-board acceptance as appropriate.</td></tr>
+  </table>
+
+  <div class="status-grid">
+    <div class="status-card"><span class="number">19 / 19</span><span class="label">documented solves</span></div>
+    <div class="status-card"><span class="number">10</span><span class="label">independent arcade solves</span></div>
+    <div class="status-card"><span class="number">4,735</span><span class="label">final recorded points</span></div>
+  </div>
+
+  <div class="callout gold">
+    <strong>Evidence handling note.</strong> Authentication was performed manually by the participant. Browser automation operated only inside the authorized CTF session. Credentials and cookies were not printed into the write-ups. Live interactions were limited to the challenge interfaces and supplied endpoints.
+  </div>
+
+  <h3>Contents</h3>
+  <div class="toc">
+    <a href="#overview"><span class="n">00</span><span class="t">Executive overview</span><span class="c">chain</span></a>
+    <a href="#methods"><span class="n">01</span><span class="t">Method and tool disclosure</span><span class="c">controls</span></a>
+    <a href="#recon"><span class="n">S0</span><span class="t">Recon</span><span class="c">OSINT</span></a>
+    <a href="#portal"><span class="n">S1</span><span class="t">The Portal</span><span class="c">Web</span></a>
+    <a href="#insider"><span class="n">S2</span><span class="t">The Insider</span><span class="c">Web</span></a>
+    <a href="#evidence"><span class="n">S3A</span><span class="t">The Evidence</span><span class="c">Forensics</span></a>
+    <a href="#cipher"><span class="n">S4A</span><span class="t">The Cipher</span><span class="c">Cryptography</span></a>
+    <a href="#tunnel"><span class="n">S3B</span><span class="t">The Tunnel</span><span class="c">Network</span></a>
+    <a href="#implant"><span class="n">S4B</span><span class="t">The Implant</span><span class="c">Reversing</span></a>
+    <a href="#nest"><span class="n">S5</span><span class="t">Nightjar’s Nest</span><span class="c">Pwn</span></a>
+    <a href="#epilogue"><span class="n">EP</span><span class="t">Epilogue</span><span class="c">Detection</span></a>
+    <a href="#arcade"><span class="n">IA</span><span class="t">Independent Arcade</span><span class="c">10 puzzles</span></a>
+    <a href="#open-leads"><span class="n">OL</span><span class="t">Open leads</span><span class="c">status</span></a>
+    <a href="#appendix"><span class="n">A</span><span class="t">Evidence and script index</span><span class="c">audit</span></a>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="section-head">
+    <div class="kicker">00 / Executive overview</div>
+    <h1>Attack chain reconstructed</h1>
+    <div class="meta">The investigation followed the application’s handover graph and closed both blue and red branches before the finale.</div>
+  </div>
+
+  <div class="chain">
+    <div class="node"><strong>Recon</strong>Bind person, archive, committed custody and approved historical record.</div>
+    <div class="node"><strong>The Portal</strong>Exploit mutable reference after immutable preview approval.</div>
+    <div class="node"><strong>The Insider</strong>Replay workflow and bypass quorum through identity duplication.</div>
+    <div class="node"><strong>Blue branch</strong>Recover covert export; forge a GCM-authenticated release.</div>
+    <div class="node"><strong>Red branch</strong>Rebind a cursor; reconstruct an unauthorized transfer context.</div>
+    <div class="node"><strong>Nightjar’s Nest</strong>Turn a queued UAF into arbitrary read/write.</div>
+    <div class="node"><strong>Epilogue</strong>Generalize the incident into a held-out behavioral detector.</div>
+  </div>
+
+  <h3>Outcome ledger</h3>
+  <table class="tight">
+    <thead><tr><th>Stage</th><th>Finding / exploit</th><th>Acceptance proof</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>S0 Recon</td><td>Provenance reconstruction and exact compact-manifest hash</td><td><code>/recon/verify → ok:true</code></td><td class="flag">flag{recon_e8f25be55df46671}</td></tr>
+      <tr><td>S1 The Portal</td><td>TOCTOU between approved preview and mutable delivery reference</td><td>Restricted version delivered after direct read returned 403</td><td class="flag">flag{portal_1285d111fcc3511d}</td></tr>
+      <tr><td>S2 The Insider</td><td>Case-sensitive subjects counted as two reviewers for one employee</td><td>Two signed tickets accepted; admin release succeeded</td><td class="flag">flag{insider_5594d69fa2cb5e59}</td></tr>
+      <tr><td>S3A The Evidence</td><td>Timing-channel recovery across two independently encoded shares</td><td>Both lane CRCs, XZ recovery and verifier acceptance</td><td class="flag">flag{evidence_23c52b9d18c24656}</td></tr>
+      <tr><td>S4A The Cipher</td><td>AES-GCM nonce reuse enabled ciphertext and tag forgery</td><td>Live validator authenticated forged release record</td><td class="flag">flag{cipher_1c06b6f19064bf9d}</td></tr>
+      <tr><td>S3B The Tunnel</td><td>Partially bound journal cursor permitted generation rebinding</td><td>Fresh TLS exchange exported historical device key</td><td class="flag">flag{tunnel_af287b68618f8777}</td></tr>
+      <tr><td>S4B The Implant</td><td>Unsigned module reached unapproved destination; memory retained credential</td><td>Unique causal chain plus 192/192 authenticated contexts</td><td class="flag">flag{implant_341adf156bb91b3d}</td></tr>
+      <tr><td>S5 Nightjar’s Nest</td><td>Queued raw pointer survived revision free; UAF became arbitrary R/W</td><td>Live receipt response and board acceptance</td><td class="flag">flag{nest_83cacdb429a88413}</td></tr>
+      <tr><td>EP Epilogue</td><td>Cross-domain behavioral correlation for unauthorized DNS transfer</td><td>35/35 training, 0 FP; one successful held-out evaluation</td><td class="flag">flag{epilogue_f5e952d7d3c3fc64}</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cross-stage evidence logic</h3>
+  <p>The chain was not nine isolated flag searches. Each solve produced a receipt, archive credential, device key or factual model consumed by a later stage. The decisive pattern was consistent across the operation: identify the authoritative state, preserve exact bytes, model how state changes, form a narrow hypothesis, test it locally, then use the live endpoint only as final confirmation.</p>
+
+  <div class="callout green">
+    <strong>Confirmed compromise.</strong> The combined record demonstrates a progression from provenance and authorization weaknesses, through covert export and cryptographic/protocol failures, to memory-resident state recovery, arbitrary process memory access and a transferable behavioral detection. Every stage listed above has independent acceptance evidence.
+  </div>
+
+  <h3>Independent Arcade outcome</h3>
+  <p>The ten arcade puzzles were independent of the handover chain and contributed 1,475 base points. Each was reconstructed from its original authorized artifact, solved with a retained script, and rechecked through its dedicated answer verifier. Together with the 3,010 documented stage points and 250-point both-branch bonus, the authenticated final state recorded <strong>4,735 points and 19/19 solved</strong>.</p>
+</section>
+
+<section class="section" id="methods">
+  <div class="section-head">
+    <div class="kicker">01 / Method and disclosure</div>
+    <h1>Evidence standard and tools used</h1>
+  </div>
+
+  <h3>Operating method</h3>
+  <ol>
+    <li><strong>Preserve.</strong> Retain supplied archives and binaries; calculate SHA-256 before analysis.</li>
+    <li><strong>Separate.</strong> Keep primary evidence in <code>assets/</code>, derived bytes in <code>analysis/</code>, and repeatable logic in <code>scripts/</code>.</li>
+    <li><strong>Correlate.</strong> Use timestamps, transaction semantics, identifiers, checksums and cryptographic bindings instead of trusting a single attractive clue.</li>
+    <li><strong>Disprove.</strong> Retain failed controls—403 responses, generic verifier failures, CRC failures, protocol errors and classifier false positives—to show why the accepted interpretation is stronger.</li>
+    <li><strong>Verify.</strong> Require byte-exact regeneration or an authoritative endpoint response before calling a stage solved.</li>
+  </ol>
+
+  <h3>Tool disclosure</h3>
+  <div class="tool-row"><div class="tool">OpenAI Codex</div><div>Used as a coding, reverse-engineering and verification copilot: inventorying files, drafting parsers and solvers, comparing binary layouts, translating rules into deterministic scripts, testing hypotheses, organizing evidence and editing the write-ups. Codex output was never treated as proof by itself.</div></div>
+  <div class="tool-row"><div class="tool">Playwright MCP</div><div>Used to communicate with the browser after manual login: navigate the case board, capture UI/accessibility state, inspect public contracts and responses, download designated acquisitions, issue same-origin requests, and submit already-validated flags. It did not create or bypass authentication and did not disclose session cookies.</div></div>
+  <div class="tool-row"><div class="tool">Python 3</div><div>Dependency-light forensic parsing and solvers: RIFF metadata, transaction journals, FAT12, SQLite/WAL, PCAP/DNS streams, timing channels, ECC/CRC, ELF/core structures, protocol frames, GF(2<sup>128</sup>) arithmetic and local detector evaluation.</div></div>
+  <div class="tool-row"><div class="tool">Node.js</div><div>Authenticated browser/CDP helpers, WebCrypto/OpenSSL-compatible routines, core-state reconstruction, acquisition helpers and controlled submission scripts.</div></div>
+  <div class="tool-row"><div class="tool">Browser DevTools / CDP</div><div>Used when an existing Playwright profile was occupied, allowing safe attachment to the already authenticated challenge browser for authorized downloads and response inspection.</div></div>
+  <div class="tool-row"><div class="tool">SQLite</div><div>Used both directly and through Python’s standard library to reconstruct committed state, restore a WAL relationship, and execute the final read-only detection query.</div></div>
+  <div class="tool-row"><div class="tool">Static analysis</div><div>ELF headers, symbols, strings and x86-64 disassembly were inspected with retained local scripts and platform utilities. Downloaded executables were not run on the host unless they were purpose-built solver helpers.</div></div>
+  <div class="tool-row"><div class="tool">Hashing / crypto</div><div>PowerShell <code>Get-FileHash</code>, Python <code>hashlib</code>, Node <code>crypto</code>, HMAC, AES-CTR/GCM, CRC-16/32, SHA-256 and exact byte comparisons provided integrity and authenticity controls.</div></div>
+  <div class="tool-row"><div class="tool">Official web sources</div><div>For Recon only, official NASA and JPL sources named by the evidence were used to resolve historical fields. The source context—not merely factual plausibility—determined the accepted identifier.</div></div>
+
+  <h3>How AI output was validated</h3>
+  <table>
+    <thead><tr><th>AI-assisted activity</th><th>Required independent check</th></tr></thead>
+    <tbody>
+      <tr><td>OCR, visual comparison or audio triage</td><td>Original image features, acquisition notes, RIFF metadata and linked mail records</td></tr>
+      <tr><td>Transaction/state reconstruction</td><td>Deterministic replay with applied/rejected/rollback counts and exact committed output</td></tr>
+      <tr><td>Binary structure inference</td><td>CRC checks, pointer-range checks, disassembly, byte counts and known-good traces</td></tr>
+      <tr><td>Cryptographic interpretation</td><td>Recomputed source tags/HMACs, successful decryption/inflation and validator acceptance</td></tr>
+      <tr><td>Exploit implementation</td><td>Fresh session values, sanity assertions, service proof and case-board acceptance</td></tr>
+      <tr><td>Detection query</td><td>Complete training confusion matrix and one independent held-out evaluation</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout red">
+    <strong>Known AI errors were retained.</strong> Examples include choosing the wrong historical identifier, assuming hex-line rather than binary network framing, misreading a final HMAC argument, swapping event status/flags, taking the wrong token slice, and adding the wrong command delimiter. Each error was corrected by returning to primary evidence or a deterministic validator—not by hiding failed attempts.
+  </div>
+</section>
+
+<section class="section" id="recon">
+  <div class="section-head">
+    <div class="kicker">S0 / OSINT / 100 points</div>
+    <h1>Recon — disputed custody transfer</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">provenance</span><span class="tag">transaction replay</span></div>
+  </div>
+  <p class="lead">The first stage required binding a badge holder to the correct archive, replaying custody transactions, identifying the north-archive photograph and building an exact hash manifest from approved historical sources.</p>
+
+  <h3>Approach and evidence trail</h3>
+  <p>The badge identified <strong>Maya Sen / HX-4821</strong>. Audible voicemail content was generic, but the WAV RIFF metadata carried <code>mailbox=archive-17; record=call-2204</code>. Mail <code>m-220</code>, whose subject was <code>call-2204</code>, bound Maya to asset <code>B04-21b0096b</code>; follow-up mail rejected revision <code>a</code> and approved revision <code>c</code>.</p>
+  <p>The custody journal was replayed with optimistic transaction semantics. Only commits whose base generation and owner matched current state were applied. The final state was generation <strong>39</strong>, carrier <code>f27f23a9</code>, location <code>north-archive</code>; 39 commits applied, 14 were rejected, 20 rolled back and one remained unfinished.</p>
+
+  <div class="figure-grid">
+    <figure class="figure"><img src="../challenges/osint/recon/assets/mail/image.png" alt="Badge identifying Maya Sen"><figcaption><strong>Figure S0-1.</strong> Preserved badge evidence identifying Maya Sen and employee ID HX-4821.</figcaption></figure>
+    <figure class="figure"><img src="../challenges/osint/recon/assets/mail/collection/photo-2.png" alt="Corridor with archive doors"><figcaption><strong>Figure S0-2.</strong> Corridor evidence: left door/green triangle defines the north archive.</figcaption></figure>
+  </div>
+  <figure class="figure"><img src="../challenges/osint/recon/assets/mail/collection/photo-1.png" alt="North archive interior"><figcaption><strong>Figure S0-3.</strong> North archive interior, corroborated by green-triangle cabinet, red pipe and yellow trolley. Original SHA-256: <code>c287b6b0…d1cdc90</code>.</figcaption></figure>
+
+  <h3>Execution record</h3>
+  <pre><code># Reproduce committed custody and exact manifest digest
+python replay_custody.py
+
+fields = ["B04-21b0096b",39,"f27f23a9",
+  "c287b6b0bdb55cc0f5c7d4ec3b4bfd093019bea82e0ef354336438430d1cdc90",
+  "1977-07-29","1977-0800",60,55,12,14,"Timothy Ferris"]
+manifest = sha256(json.dumps(fields,separators=(",", ":")).encode()).hexdigest()
+# 4f3bc799d152281d139bac1d2394eecb5656f4da1d7752ca76d8556d4e117c97</code></pre>
+
+  <h3>Reasoning and proof</h3>
+  <p>The evidence-approved JPL page used release identifier <code>1977-0800</code>. An initial use of the legitimate but wrong-context NASA identifier <code>77-159</code> failed, proving that source scope was part of the challenge. The corrected compact array was submitted with revision <code>c</code>.</p>
+  <div class="proof">POST /recon/verify
+{"revision":"c","manifest":"4f3bc799d152281d139bac1d2394eecb5656f4da1d7752ca76d8556d4e117c97"}
+→ {"ok":true,"flag":"flag{recon_e8f25be55df46671}"}</div>
+  <p><strong>AI/tool use:</strong> Codex assisted with image comparison, RIFF parsing, journal replay and source correlation; Playwright MCP submitted the already-derived manifest from the authenticated origin. All visual and historical values were checked against retained artifacts and approved official pages.</p>
+  <div class="source-note">Detailed record: <code>challenges/osint/recon/writeup.md</code></div>
+</section>
+
+<section class="section" id="portal">
+  <div class="section-head">
+    <div class="kicker">S1 / Web / 200 points</div>
+    <h1>The Portal — restricted delivery</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">TOCTOU</span><span class="tag">authorization</span></div>
+  </div>
+  <p class="lead">A collection author could not directly read the restricted incident record. The exploit instead separated the approved object from the object eventually delivered.</p>
+
+  <h3>Evidence and hypothesis</h3>
+  <p>The API contract, database model and support logs showed that a preview stored an immutable version and digest, but an export job retained a mutable <code>reference_id</code>. Delivery reopened the reference after pause/resume. The control request to the restricted content endpoint returned <strong>HTTP 403</strong>, demonstrating that knowing its identifier was not enough.</p>
+
+  <h3>Execution record</h3>
+  <ol>
+    <li>Create a collection containing allowed document <code>brief-d178a81cb6</code>.</li>
+    <li>Import it, create <code>preview-9</code>, approve it as <code>approval-10</code>, and queue <code>job-11</code>.</li>
+    <li>Pause the job at cursor 0.</li>
+    <li>Patch <code>collection-6</code> revision 1 so its member becomes restricted <code>incident-d178a81cb6</code>.</li>
+    <li>Resume and dispatch the original job without a new preview or approval.</li>
+  </ol>
+  <pre><code>PATCH /portal/collections/collection-6
+{"member":"incident-d178a81cb6","revision":1}
+
+POST /portal/jobs/job-11/resume
+POST /portal/jobs/job-11/dispatch
+GET  /portal/jobs/job-11/download</code></pre>
+
+  <h3>Proof and preservation</h3>
+  <p>The completed job retained <code>approval-10</code> but reported <code>delivered_version: incident-d178a81cb6:1</code>. The downloaded bytes contained the restricted incident and acquisition receipt. They were preserved as <code>portal-job-11-delivery.txt</code>, SHA-256 <code>3640a514…a59c640</code>.</p>
+  <div class="proof">direct restricted read → HTTP 403 {"detail":"document read denied"}
+approved preview        → allowed brief
+delivered_version       → incident-d178a81cb6:1
+download receipt        → flag{portal_1285d111fcc3511d}</div>
+  <p><strong>AI/tool use:</strong> Playwright MCP navigated the workspace, inspected network responses and executed the documented state transitions. Codex correlated <code>models.sql</code>, release notes and the delivery log, then retained the response hash. The exploit was verified by the version mismatch and byte-exact download, not by UI appearance.</p>
+  <div class="source-note">Detailed record: <code>challenges/web/the-portal/writeup.md</code></div>
+</section>
+
+<section class="section" id="insider">
+  <div class="section-head">
+    <div class="kicker">S2 / Web / 300 points</div>
+    <h1>The Insider — emergency release record</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">identity canonicalization</span><span class="tag">quorum</span></div>
+  </div>
+  <p class="lead">The effective workflow state had to be replayed before testing authorization. Policy P19 then counted two subject strings as two reviewers even though they belonged to one human employee.</p>
+
+  <h3>Evidence trail</h3>
+  <p>Deterministic replay of <code>workflow.db</code> rejected transactions containing failed compare-and-swap operations, even when a later row said COMMIT. Effective state was case <code>0144b1151f1c</code>, revision 3, request <code>042e4765d649df</code>, policy <code>P19</code>, root <code>751a4690aa0a6da49e4c</code>, status <code>pending-quorum</code>.</p>
+  <p>P19 joined directory rows on employee number but counted case-sensitive subjects. The federated and on-prem records had subjects <code>rv-46e9334a6c</code> and <code>RV-46e9334a6c</code>, while both had employee number <code>46e9334a6c</code>. The policy counted two principals where only one person existed.</p>
+
+  <h3>Execution record</h3>
+  <pre><code>python replay_workflow.py
+# revision=3 policy=P19 status=pending-quorum
+
+POST /insider/recover  {handover, manifest}
+POST /insider/review   {handover, object_id:"a99cc695bf06389f3d5a"}
+POST /insider/review   {handover, object_id:"ae95670c58b2db7cc59a"}
+POST /insider/approve  {handover, review_ticket, manifest}  # twice
+POST /insider/admin    {handover, manifest}</code></pre>
+
+  <h3>Proof</h3>
+  <p>No ticket was forged. The server issued two valid, state-bound review tickets and accepted both. Their principals differed only by case; their employee identity was the same.</p>
+  <div class="proof">review ticket 1 → principal rv-46e9334a6c
+review ticket 2 → principal RV-46e9334a6c
+employee number → 46e9334a6c (same human)
+approve #1      → {"accepted":true}
+approve #2      → {"accepted":true}
+admin release   → {"ok":true,"flag":"flag{insider_5594d69fa2cb5e59}"}</div>
+  <p><strong>AI/tool use:</strong> Codex wrote and checked the replay logic, compared policies and joined identities. Playwright MCP retrieved the acquisition, requested signed tickets and issued the documented requests after manual login. Proof rested on committed state, signed ticket payloads and the successful final release.</p>
+  <div class="source-note">Detailed record: <code>challenges/web/the-insider/writeup.md</code></div>
+</section>
+
+<section class="section" id="evidence">
+  <div class="section-head">
+    <div class="kicker">S3A / Forensics / 385 awarded</div>
+    <h1>The Evidence — gateway acquisition</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">first blood</span><span class="tag">timing channel</span></div>
+  </div>
+  <p class="lead">A recovery document crossed the boundary inside historian timing. The attribution required committed workstation state, clock correction, DHCP history, network corroboration and two independently decoded shares.</p>
+
+  <h3>Attack chain and findings</h3>
+  <p>The workstation image contained <code>RECOV.DB</code> and its WAL; restoring the expected basename relationship let SQLite apply committed frames. The export display time <code>2026-09-27 14:14:28</code> was UTC+05:30 and 137 seconds fast, yielding <code>2026-09-27T08:42:11Z</code>. DHCP history mapped <code>reception-17</code> to <code>10.27.4.18</code> at that time, while <code>.44</code> belonged to an approved ops host.</p>
+  <p>Because <code>secure_delete=OFF</code>, deleted <code>R9CF</code> profiles survived in unallocated SQLite bytes. Profile CRC-16, generation 24955 and calibration captures selected the active profiles. Timestamp-rank permutations yielded two 233-byte shares; each passed its stored CRC-32. XOR exposed an XZ stream whose decompressed 177-byte JSON matched the host task and owner.</p>
+
+  <h3>Execution record</h3>
+  <pre><code>python scripts/triage_evidence.py
+python scripts/extract_fat_files.py
+python scripts/inspect_reception_db.py
+python scripts/extract_dns_streams.py
+python scripts/analyze_historian.py
+python scripts/decode_r9_profiles.py
+python scripts/recover_rank_symbols.py
+python scripts/locate_r9_frames.py
+python scripts/recover_r9_lanes.py</code></pre>
+  <div class="proof">LANE 0 stored_crc32=8d01014f calculated_crc32=8d01014f
+LANE 1 stored_crc32=dcdf35b0 calculated_crc32=dcdf35b0
+combined_size=233  xz_offset=13  document_size=177
+document_sha256=4484648495b0dab0b48e533c638cdc5224f5d86d7bedbfbf8fe4cf88283681de
+verifier → {"ok":true,"flag":"flag{evidence_23c52b9d18c24656}"}</div>
+
+  <h3>Final evidence tuple</h3>
+  <pre><code>{"source":"10.27.4.18","task":"db06efd5a7549b9e",
+ "exported_utc":"2026-09-27T08:42:11Z",
+ "document_sha256":"4484648495b0dab0b48e533c638cdc5224f5d86d7bedbfbf8fe4cf88283681de"}</code></pre>
+  <p><strong>AI/tool use:</strong> Codex assisted with FAT/PCAP/SQLite parsers, ELF interpretation and inverse timing transforms; browser automation downloaded the designated bundle and submitted one verified tuple. Every transformation was bounded by hashes, calibration, sync, ECC, CRC, XZ structure and server acceptance.</p>
+  <div class="source-note">Detailed record: <code>challenges/forensics/the-evidence/writeup.md</code></div>
+</section>
+
+<section class="section" id="cipher">
+  <div class="section-head">
+    <div class="kicker">S4A / Cryptography / 405 points</div>
+    <h1>The Cipher — forged recovery journal</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">AES-GCM</span><span class="tag">nonce reuse</span></div>
+  </div>
+  <p class="lead">Packet-arrival phase hid a wrapped journal. Two equal-length records reused one AES-GCM nonce, exposing both the counter stream and enough GHASH structure to forge an authenticated release command.</p>
+
+  <h3>Evidence trail</h3>
+  <p>Of 37,496 UDP JSON messages, 23 sensors sent 900 packets while sensor <code>F-2F9E</code> sent 16,796. Computing collector time minus transmitter time separated ordinary ±12 ms samples from ~60 ms delayed samples. At bit offset 364 the stream contained <code>TRP2</code>. Registration-order calibration bytes and the Evidence archive key derived AES-CTR wrap key <code>a018019148d17832c2965bb14c49a239</code>; strict zlib inflation produced a 19-record journal.</p>
+  <p>Records 7 and 14 reused nonce <code>18a36dba1453cb10180bc217</code>. Retained activity plus the 48-byte command ABI reconstructed both plaintexts. Their tag difference and first-block ciphertext difference gave <code>H⁴</code>; finite-field inversion recovered <code>H=518ad05ada2c651572c5817c23a5d2f8</code>. Both original tags were recomputed before forging.</p>
+
+  <h3>Execution record</h3>
+  <pre><code>python scripts/analyze_cipher_pcap.py
+python scripts/recover_cipher_transport.py
+node   scripts/recover_cipher_journal.js
+python scripts/forge_cipher_release.py
+
+nonce      = 18a36dba1453cb10180bc217
+ciphertext = 1b944dd2b1309d9598ea8bb1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278db07f42b79bb6f464d56398
+tag        = 38ac1db1c473c0c8792867714c3da7f9</code></pre>
+
+  <h3>Proof</h3>
+  <div class="proof warn">First delimiter hypothesis → {"ok":false}
+Cause: read context incorrectly ended with a pipe; fixed-width ABI actually used spaces.</div>
+  <div class="proof">POST /cipher/dispatch
+original source tags recomputed → both match
+forged plaintext              → exact 48-byte action=release command
+validator                     → {"ok":true,"flag":"flag{cipher_1c06b6f19064bf9d}"}</div>
+  <p><strong>AI/tool use:</strong> Codex generated the dependency-free PCAP parser, unwrap logic and GF(2<sup>128</sup>) implementation. Playwright MCP served only as authenticated same-origin transport. One official hint was redeemed (10% deduction); its direction was to compare authenticated journal records with retained plaintext. Exact tag reproduction and validator acceptance controlled the final result.</p>
+  <div class="source-note">Detailed record: <code>challenges/cryptography/the-cipher/writeup.md</code></div>
+</section>
+
+<section class="section" id="tunnel">
+  <div class="section-head">
+    <div class="kicker">S3B / Network / 350 points</div>
+    <h1>The Tunnel — retained device journal</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">protocol reversing</span><span class="tag">cursor rebinding</span></div>
+  </div>
+  <p class="lead">A journal cursor mixed an object reference, embedded generation and session binding without cryptographically binding those meanings together. Recombining valid parts in a fresh session selected historical committed material.</p>
+
+  <h3>Evidence and reasoning</h3>
+  <p>The stripped client, shared library, ABI and two laboratory traces established raw frame structure, CRC-16, HMAC inputs and command sequencing. A cursor was <code>8-byte object reference | 4-byte generation | 8-byte session binding</code>. The service checked current outer and embedded generations, but did not bind the historical object reference to its original generation.</p>
+  <p>In a fresh TLS session, the retained state-3 cursor was <code>69bd92377a533352|d83c0000|b6b1d1410fc841c3</code>; current generation was <code>d83c0100</code>. Replacing only bytes 8–11 preserved the historical reference and live session tail while satisfying the generation checks.</p>
+
+  <h3>Execution record</h3>
+  <pre><code>python challenges/network/the-tunnel/scripts/solve_tunnel.py --verify
+# both laboratory captures regenerated byte-for-byte through command 0x23
+
+python -u challenges/network/the-tunnel/scripts/solve_tunnel.py
+# OPEN → BEGIN → SCAN → SUSPEND → EXPORT → FINISH
+
+rebound = journal_cursor[:8] + pack("&lt;I", open_generation) + journal_cursor[12:]</code></pre>
+  <div class="proof">EXPORT metadata → historical ref 69bd92377a533352 / generation d83c0000
+device key     → 64c5d828bac56fe9037c4a188d21652c0df5221c6118320ee36541d32c01dcf7
+final proof    → HMAC(device_key, session_id || nonce || SHA256(transcript))
+server         → {"ok":true,"flag":"flag{tunnel_af287b68618f8777}"}</div>
+
+  <h3>Corrections and validation</h3>
+  <p>Recorded frames could not be replayed because session challenges, HMACs and cursor tails expired. Three failed interpretations produced useful evidence: treating the service as hex-line transport, using historical generation as the outer generation, and using the maintenance credential as the final proof key. Binary framing and System V register analysis corrected these.</p>
+  <p><strong>AI/tool use:</strong> Codex compared traces, translated disassembly, built framing/CRC/HMAC/TLS code and proposed generation tests. The solver verified certificate identity, checked every frame and reproduced known traces offline before one fresh live exchange. Playwright/browser helpers retrieved only authorized bootstrap material.</p>
+  <div class="source-note">Detailed record: <code>challenges/network/the-tunnel/writeup.md</code></div>
+</section>
+
+<section class="section" id="implant">
+  <div class="section-head">
+    <div class="kicker">S4B / Reversing / 450 points</div>
+    <h1>The Implant — interrupted process acquisition</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">core forensics</span><span class="tag">AES-GCM</span></div>
+  </div>
+  <p class="lead">All 192 retained contexts authenticated, so cryptographic validity alone could not identify the incident. A CRC-valid circular event ring isolated the one complete unsigned-module and unapproved-destination transfer, which mapped to current context 35.</p>
+
+  <h3>Evidence trail</h3>
+  <p>The ELF core’s virtual addresses were mapped through <code>PT_LOAD</code> segments. Valid <code>RCTX</code> headers led through masked linked-node chains; the Tunnel device key derived per-context authentication material. Parsing the ring by sequence number, not physical position, found a single complete chain:</p>
+  <pre><code>begin(handle)
+ → module load(handle, unsigned)
+ → connect(handle, unapproved)
+ → stage(head)
+ → transmit(head)
+ → cleanup(handle)</code></pre>
+  <p>Sequences 10637–10651 shared handle <code>0x000067b2c59e6291</code>; stage/transmit shared head <code>0x00007f40918b1000</code>. That head matched current header 35, owner <code>2419674196</code>, generation <code>3850136661</code>. Its 31-node, 1,505-byte state authenticated with AES-256-GCM.</p>
+
+  <h3>Execution record</h3>
+  <pre><code>python scripts/analyze_implant.py assets/implant-process.core
+python scripts/analyze_implant_events.py assets/implant-process.core
+node scripts/solve_implant.js assets/implant-process.core \
+  64c5d828bac56fe9037c4a188d21652c0df5221c6118320ee36541d32c01dcf7 35
+node scripts/submit_implant.js</code></pre>
+  <div class="proof">records=1536 valid=1535 invalid=1
+completed policy-violating chains=30
+completed full-incident chains=1
+AUTH owner=2419674196 generation=3850136661 nodes=31 bytes=1505
+credential=a648b8e3fbb05b5a70572e5cae51ec92
+endpoint → {"ok":true,"flag":"flag{implant_341adf156bb91b3d}"}</div>
+
+  <h3>Corrective evidence</h3>
+  <p>The first parser swapped status and flags; the first token slice included owner and generation. CRC-valid records, the acquisition notes and little-endian parsing exposed both mistakes. The correct token begins at plaintext offset <code>0x0c</code>, after magic, owner and generation.</p>
+  <p><strong>AI/tool use:</strong> Codex assisted with ELF mapping, disassembly, pointer and crypto formulas, event parsing and hypothesis tests. Browser/CDP automation acquired the authorized files and submitted final evidence. No downloaded executable was executed; all claims were checked against structural CRCs, pointer ranges, chain invariants, GCM tags and the evidence endpoint.</p>
+  <div class="source-note">Detailed record: <code>challenges/reversing/the-implant/writeup.md</code></div>
+</section>
+
+<section class="section" id="nest">
+  <div class="section-head">
+    <div class="kicker">S5 / Pwn / 600 points</div>
+    <h1>Nightjar’s Nest — document spool worker</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">use-after-free</span><span class="tag">arbitrary R/W</span></div>
+  </div>
+  <p class="lead">A queued job retained a raw revision pointer without acquiring ownership. <code>undo</code> changed a mutable ID, allowing <code>compact</code> to free the queued revision. Documented render and patch operations then dereferenced attacker-controlled replacement data.</p>
+
+  <h3>Trigger and primitive</h3>
+  <pre><code>create doc0,32 → save → replace doc0,32 → queue job0
+undo doc0      → saved revision ID mutates
+compact doc0   → queued revision freed; job0 remains
+create doc1,64 → controlled allocation overlaps stale Revision
+queue job1     → patch job1 retargets fake Revision.data
+render job0    → arbitrary 32-byte read
+patch job0     → arbitrary 32-byte write</code></pre>
+  <p>Rendering the freed object leaked the arena-global pointer at image-relative <code>0x4a80</code>, giving the PIE base. The fake revision then targeted globals at <code>0x4a50</code> to copy randomized required-delivery state over completed state, and <code>0x4a90</code> to follow the heap pointer to the session credential.</p>
+
+  <h3>Execution record and proof</h3>
+  <pre><code>python challenges/pwn/nightjars-nest/scripts/solve_nest.py
+# Uses verified TLS, fresh ASLR values and only documented spool operations.</code></pre>
+  <div class="proof">example fresh session:
+PIE base          = 0x60b322fd5000
+required state    = 0x7bd965ee7643401f
+credential buffer = 0x60b3330042b0
+credential        = dfa36d5dea71c59d7c89e7eb8e17b6850088bb893ee94f1aec40ef4a55e61d46
+service response  = flag{nest_83cacdb429a88413}
+case board        = {"correct":true,"points":600,"first_blood":false}</div>
+  <p>ASLR addresses, state and credential change every session; the solver derives them rather than using the captured example. No shell, filesystem access or code execution was required.</p>
+  <p><strong>AI/tool use:</strong> Codex supported stripped-binary structure recovery, allocator reasoning, protocol implementation and exploit assertions. The result was validated against live, randomized process state and independent case-board acceptance.</p>
+  <div class="source-note">Detailed record: <code>challenges/pwn/nightjars-nest/writeup.md</code></div>
+</section>
+
+<section class="section" id="epilogue">
+  <div class="section-head">
+    <div class="kicker">EP / Detection Engineering / 220 points</div>
+    <h1>Epilogue — transferable DNS-transfer detection</h1>
+    <div class="meta"><span class="tag">solved</span><span class="tag">first blood</span><span class="tag">held-out evaluation</span></div>
+  </div>
+  <p class="lead">The finale required a behavioral detector that survived randomized hosts, IPs, domains, PIDs, hashes, certificates, order and payload. Hard-coded indicators could not pass.</p>
+
+  <h3>Detection logic</h3>
+  <p>The final read-only SQL correlated three independent evidence domains:</p>
+  <ol>
+    <li><strong>Resolver:</strong> normalize collector clocks, resolve address ownership using the active lease, de-duplicate retransmissions, validate CRCs and require one unambiguous complete stream of at least ten chunks.</li>
+    <li><strong>Endpoint:</strong> normalize module/process clocks, require a recent module load by a process with a recorded parent, and bind the event to the transfer host.</li>
+    <li><strong>Control state:</strong> at module-event time, require both absence of valid/unrevoked signer trust and absence of an effective exact host/module deployment approval.</li>
+  </ol>
+  <p>The first rule achieved full recall but only 77.8% precision because it treated short repeated deliveries as substantive transfer streams. The minimum complete-stream condition eliminated those benign cases without encoding training identifiers.</p>
+
+  <h3>Execution record</h3>
+  <pre><code>python challenges/detection-engineering/epilogue/scripts/epilogue_analyze.py
+# loads training JSON into SQLite, registers nj_* helpers, executes exact SQL
+
+detector bytes=2455 predictions=35 tp=35 fp=0 fn=0
+precision=1.000 recall=1.000
+
+# exact query retained at:
+challenges/detection-engineering/epilogue/analysis/epilogue-detector.sql</code></pre>
+
+  <h3>Proof</h3>
+  <div class="proof">training corpus  → 35 incidents / 35 benign / 0 errors
+held-out corpus  → 240 streams with randomized identities and state
+evaluation calls → 1 of 20
+POST /epilogue/grade → {"ok":true,"flag":"flag{epilogue_f5e952d7d3c3fc64}"}
+case board       → {"correct":true,"points":220,"first_blood":true}</div>
+  <p><strong>AI/tool use:</strong> Codex translated the contract into predicates, constructed a local SQLite harness, analyzed false positives and simplified the final SQL. Playwright MCP performed the one authenticated evaluator request and flag submission. No held-out labels were visible; transferability was established only by the independent evaluator.</p>
+  <div class="source-note">Detailed record: <code>challenges/detection-engineering/epilogue/writeup.md</code></div>
+</section>
+
+<section class="section" id="arcade">
+  <div class="section-head">
+    <div class="kicker">IA / Independent Arcade / 1,475 points</div>
+    <h1>Independent Arcade — ten standalone solves</h1>
+    <div class="meta"><span class="tag">10 / 10 solved</span><span class="tag">independent artifacts</span><span class="tag">answer verified</span></div>
+  </div>
+  <p class="lead">The arcade challenges did not depend on case handovers and could be solved in any order. Their artifacts were recovered from the authorized puzzle endpoints, preserved under <code>challenges/arcade/</code>, and paired with one deterministic solver and one individual write-up each.</p>
+
+  <table class="tight">
+    <thead><tr><th>Challenge</th><th>Category</th><th>Points</th><th>Recovered answer</th></tr></thead>
+    <tbody>
+      <tr><td>Route Zero</td><td>Graph search</td><td>25</td><td><code>49</code></td></tr>
+      <tr><td>Pixel Ledger</td><td>Nonogram</td><td>75</td><td><code>1110100011110001</code></td></tr>
+      <tr><td>Deadline Lab</td><td>Scheduling</td><td>75</td><td><code>CBAEFD</code></td></tr>
+      <tr><td>Double Entry</td><td>Accounting</td><td>100</td><td><code>30186</code></td></tr>
+      <tr><td>Beacon Six</td><td>Signal analysis</td><td>150</td><td><code>609637</code></td></tr>
+      <tr><td>Terminal Echo</td><td>Terminal emulation</td><td>150</td><td><code>AEYIOAKN</code></td></tr>
+      <tr><td>Custodian Records</td><td>Secret sharing</td><td>200</td><td><code>140</code></td></tr>
+      <tr><td>Switchboard</td><td>Boolean logic</td><td>200</td><td><code>01110011</code></td></tr>
+      <tr><td>Device Messages</td><td>RSA</td><td>300</td><td><code>760422</code></td></tr>
+      <tr><td>Afterlife</td><td>Cellular automata</td><td>200</td><td><code>011000001000101011001111110000000000</code></td></tr>
+    </tbody>
+  </table>
+  <div class="callout green"><strong>Aggregate proof.</strong> Re-running <code>node challenges/arcade/verify_arcade_answers.js</code> against the authenticated puzzle verifiers returned <code>ok:true</code> for all ten answers and reproduced all ten flags. This verification does not resubmit flags to the case board.</div>
+</section>
+
+<article class="arcade-case" id="arcade-route">
+  <div class="section-head">
+    <div class="kicker">IA-01 / Graph search / 25 points</div>
+    <h1>Route Zero</h1>
+    <div class="meta"><span class="tag">Dijkstra</span><span class="tag">directed graph</span></div>
+  </div>
+  <p class="lead">Find the minimum directed-route cost from station A to station F.</p>
+  <h3>Evidence and approach</h3>
+  <p>The artifact contained eight weighted directed edges. Dijkstra’s algorithm started at <code>A=0</code>, reached <code>C=19</code> and <code>B=26</code>, then set <code>E=33</code> through C. Although B improved D to 41, the E route reached F first at 49.</p>
+  <pre><code>A -> C -> E -> F
+19 + 14 + 16 = 49
+
+python challenges/arcade/route-zero/scripts/solve.py
+# path=A->C->E->F
+# cost=49</code></pre>
+  <h3>Proof and tools</h3>
+  <div class="proof">answer 49 → {"ok":true,"flag":"flag{welcome_fdb3ed9c4339c847}"}</div>
+  <p>Codex implemented the shortest-path checker; all candidate A-to-F paths were also compared manually. Playwright/CDP retrieved the exact JSON and used the official answer verifier. Artifact SHA-256: <code>813c09da…25ee65e</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/route-zero/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-pixel">
+  <div class="section-head">
+    <div class="kicker">IA-02 / Nonogram / 75 points</div>
+    <h1>Pixel Ledger</h1>
+    <div class="meta"><span class="tag">constraint solving</span><span class="tag">unique grid</span></div>
+  </div>
+  <p class="lead">Resolve a 4×4 nonogram and submit the row-major binary grid.</p>
+  <h3>Reasoning</h3>
+  <p>The third row clue <code>[4]</code> forced all cells on. Column 1’s <code>[3]</code> then fixed rows 1–3 filled and row 4 empty. Column 4’s <code>[2]</code> paired rows 3 and 4. The two split-run columns completed the unique grid:</p>
+  <div class="grid-art">1110<br>1000<br>1111<br>0001</div>
+  <p>Its columns are <code>1110</code>, <code>1010</code>, <code>1010</code>, and <code>0011</code>, exactly matching <code>[3]</code>, <code>[1,1]</code>, <code>[1,1]</code>, and <code>[2]</code>.</p>
+  <pre><code>python challenges/arcade/pixel-ledger/scripts/solve.py
+# exhaustive 2^16 enumeration; exactly one solution
+# answer=1110100011110001</code></pre>
+  <div class="proof">answer 1110100011110001 → {"ok":true,"flag":"flag{badge_391d9e9b56cb40a1}"}</div>
+  <p>Codex encoded the clue evaluator; uniqueness and every clue were independently checked. Artifact SHA-256: <code>9922f702…0930194</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/pixel-ledger/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-rota">
+  <div class="section-head">
+    <div class="kicker">IA-03 / Scheduling / 75 points</div>
+    <h1>Deadline Lab</h1>
+    <div class="meta"><span class="tag">weighted completion</span><span class="tag">precedence</span></div>
+  </div>
+  <p class="lead">Order six jobs to minimize weighted completion time while enforcing A before D and B before F.</p>
+  <h3>Execution and result</h3>
+  <p>With only 720 permutations, exhaustive search was the strongest proof. Invalid precedence orders were rejected; each remaining order accumulated duration and <code>completion × weight</code>. Ties were compared alphabetically as required.</p>
+  <table class="tight"><thead><tr><th>Job</th><th>Completion</th><th>Weighted cost</th></tr></thead><tbody><tr><td>C</td><td>2</td><td>10</td></tr><tr><td>B</td><td>7</td><td>35</td></tr><tr><td>A</td><td>16</td><td>80</td></tr><tr><td>E</td><td>24</td><td>96</td></tr><tr><td>F</td><td>29</td><td>58</td></tr><tr><td>D</td><td>36</td><td>72</td></tr></tbody></table>
+  <pre><code>python challenges/arcade/deadline-lab/scripts/solve.py
+# order=CBAEFD
+# cost=351</code></pre>
+  <div class="proof">answer CBAEFD → {"ok":true,"flag":"flag{rota_bfc9b384d4620514}"}</div>
+  <p>Codex implemented exhaustive enumeration and the exact tie-break rule. Artifact SHA-256: <code>a5a0bc48…6e4d3a5</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/deadline-lab/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-ledger">
+  <div class="section-head">
+    <div class="kicker">IA-04 / Accounting / 100 points</div>
+    <h1>Double Entry</h1>
+    <div class="meta"><span class="tag">idempotency</span><span class="tag">event replay</span></div>
+  </div>
+  <p class="lead">Replay delivered accounting events exactly once per event ID.</p>
+  <h3>Evidence and calculation</h3>
+  <p>The 18 delivered rows represented 14 unique events. IDs 12, 4, 8 and 0 were duplicates and were ignored on second delivery. Unique charges totaled 11,559 cents; unique refunds totaled 9,134 cents.</p>
+  <pre><code>opening + charges - refunds
+27,761 + 11,559 - 9,134 = 30,186
+
+python challenges/arcade/double-entry/scripts/solve.py
+# unique_events=14
+# final_balance_cents=30186</code></pre>
+  <div class="proof">answer 30186 → {"ok":true,"flag":"flag{helpdesk_dc43606549c7d101}"}</div>
+  <p>Codex translated the stated event-identity rule into an idempotent replay and checked both subtotals. Playwright/CDP obtained the original export and verified the integer-cent balance. Artifact SHA-256: <code>7d6415b1…9e0b89c3</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/double-entry/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-beacon">
+  <div class="section-head">
+    <div class="kicker">IA-05 / Signal analysis / 150 points</div>
+    <h1>Beacon Six</h1>
+    <div class="meta"><span class="tag">WAV</span><span class="tag">Morse timing</span></div>
+  </div>
+  <p class="lead">Recover a six-digit identifier from an 8.56-second keyed-tone acquisition.</p>
+  <h3>Analysis</h3>
+  <p>The mono 8 kHz PCM signal was not DTMF: standard dual-frequency energy tests failed. Energy runs instead revealed an 80 ms Morse unit. One active unit was a dot, three were a dash, and three silent units separated digits.</p>
+  <pre><code>-....  -----  ----.  -....  ...--  --...
+  6      0      9      6      3      7
+
+python challenges/arcade/beacon-six/scripts/solve.py
+# groups=-.... ----- ----. -.... ...-- --...
+# answer=609637</code></pre>
+  <div class="proof">answer 609637 → {"ok":true,"flag":"flag{voicemail_d94ada40a244926c}"}</div>
+  <p>Codex supported waveform triage and the dependency-free timing decoder; the incorrect DTMF hypothesis was explicitly rejected. The WAV was downloaded byte-for-byte through the authorized browser session. SHA-256: <code>4dfdf92a…a73f2c9</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/beacon-six/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-terminal">
+  <div class="section-head">
+    <div class="kicker">IA-06 / Terminal emulation / 150 points</div>
+    <h1>Terminal Echo</h1>
+    <div class="meta"><span class="tag">cursor state</span><span class="tag">overwrite</span></div>
+  </div>
+  <p class="lead">Render a cursor-control stream on an initially blank eight-column line.</p>
+  <h3>Execution</h3>
+  <p>Only three operations existed: <code>ESC[nG</code> moved to one-based column n, backspace moved left without erasing, and printable characters overwrote the current cell. Every segment wrote a lowercase decoy, backspaced and overwrote it with uppercase.</p>
+  <pre><code>ESC[1G a BS A → column 1 = A
+ESC[2G m BS E → column 2 = E
+...
+final columns 1..8 = A E Y I O A K N
+
+python challenges/arcade/terminal-echo/scripts/solve.py
+# answer=AEYIOAKN</code></pre>
+  <div class="proof">answer AEYIOAKN → {"ok":true,"flag":"flag{printq_0201cfbd05f9c743}"}</div>
+  <p>Codex implemented the narrow terminal state machine with explicit failure for unsupported escapes; the final cell state was checked manually. Artifact SHA-256: <code>7ea7d3e3…d7a94a3d</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/terminal-echo/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-shares">
+  <div class="section-head">
+    <div class="kicker">IA-07 / Secret sharing / 200 points</div>
+    <h1>Custodian Records</h1>
+    <div class="meta"><span class="tag">GF(257)</span><span class="tag">Lagrange</span></div>
+  </div>
+  <p class="lead">Recover f(0) from three points on a degree-at-most-two polynomial over the supplied prime field.</p>
+  <h3>Calculation</h3>
+  <p>The shares were <code>(1,15)</code>, <code>(3,198)</code> and <code>(5,16)</code>. Lagrange basis coefficients at zero were 34, 63 and 161. Their field contributions were 253, 138 and 6.</p>
+  <pre><code>f(0) = (253 + 138 + 6) mod 257 = 140
+
+python challenges/arcade/custodian-records/scripts/solve.py
+# answer=140</code></pre>
+  <div class="proof">answer 140 → {"ok":true,"flag":"flag{vending_48e272382e88a354}"}</div>
+  <p>Codex implemented finite-field interpolation; every non-zero denominator and intermediate coefficient was printed for audit. Artifact SHA-256: <code>cfa870fc…3610edb</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/custodian-records/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-switchboard">
+  <div class="section-head">
+    <div class="kicker">IA-08 / Boolean logic / 200 points</div>
+    <h1>Switchboard</h1>
+    <div class="meta"><span class="tag">XOR graph</span><span class="tag">constraint propagation</span></div>
+  </div>
+  <p class="lead">Recover binary states A through H from one anchor and same/different relationships.</p>
+  <h3>Reasoning</h3>
+  <p>A relationship value 0 meant equality and 1 meant difference, equivalent to XOR. Starting with <code>A=0</code>, graph propagation produced:</p>
+  <pre><code>A=0  B=1  C=1  D=1  E=0  F=0  G=1  H=1
+answer=01110011
+
+python challenges/arcade/switchboard/scripts/solve.py</code></pre>
+  <p>The solver added both directions of every relationship and rejected any contradiction with an already assigned bit.</p>
+  <div class="proof">answer 01110011 → {"ok":true,"flag":"flag{legacy_b81bde2dc1e65caf}"}</div>
+  <p>Codex built the propagation and consistency check; all seven equations were also checked manually. Artifact SHA-256: <code>ac01fa68…c9e6bdfc</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/switchboard/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-rsa">
+  <div class="section-head">
+    <div class="kicker">IA-09 / RSA / 300 points</div>
+    <h1>Device Messages</h1>
+    <div class="meta"><span class="tag">shared prime</span><span class="tag">textbook RSA</span></div>
+  </div>
+  <p class="lead">Decrypt the first device’s raw RSA ciphertext after discovering shared key material.</p>
+  <h3>Cryptographic failure</h3>
+  <p>The two moduli shared prime 1051:</p>
+  <pre><code>gcd(1123519, 1060459) = 1051
+1123519 = 1051 × 1069
+φ(n1) = 1,121,400
+d = 65537^-1 mod φ(n1) = 766,673
+m = 342096^766673 mod 1123519 = 760422
+
+python challenges/arcade/device-messages/scripts/solve.py</code></pre>
+  <p>The root cause is duplicated prime material from weak or repeated randomness. Because the task explicitly used textbook RSA without padding, modular exponentiation recovered the decimal plaintext directly.</p>
+  <div class="proof">answer 760422 → {"ok":true,"flag":"flag{entropy_4f4121eb24ad9bce}"}</div>
+  <p>Codex proposed the batch-GCD check and implemented the transparent factor/totient/inverse steps; all values were locally recomputed. Artifact SHA-256: <code>1efd057c…5d153332</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/device-messages/writeup.md</code></div>
+</article>
+
+<article class="arcade-case" id="arcade-life">
+  <div class="section-head">
+    <div class="kicker">IA-10 / Cellular automata / 200 points</div>
+    <h1>Afterlife</h1>
+    <div class="meta"><span class="tag">Conway</span><span class="tag">three generations</span></div>
+  </div>
+  <p class="lead">Advance a 6×6 Conway board three simultaneous generations with dead boundaries.</p>
+  <h3>Execution record</h3>
+  <p>A second grid buffered every generation so newly calculated cells could not affect neighbors in the same step. The third generation was:</p>
+  <div class="grid-art">011000<br>001000<br>101011<br>001111<br>110000<br>000000</div>
+  <pre><code>python challenges/arcade/afterlife/scripts/solve.py
+# answer=011000001000101011001111110000000000</code></pre>
+  <div class="proof">answer 011000001000101011001111110000000000
+→ {"ok":true,"flag":"flag{iris_63dcc5c2ad77ec1d}"}</div>
+  <p>Codex implemented explicit dead-boundary neighbor counting and printed all three intermediate boards. An independent calculation matched the final 36 bits. Artifact SHA-256: <code>f4460afc…765be66</code>.</p>
+  <div class="source-note">Individual record: <code>challenges/arcade/afterlife/writeup.md</code></div>
+</article>
+
+<section class="section" id="open-leads">
+  <div class="section-head">
+    <div class="kicker">Open leads / residual work</div>
+    <h1>Outstanding questions and defensive follow-up</h1>
+  </div>
+  <div class="callout green">
+    <strong>Challenge status.</strong> There are no unresolved challenges in the event scope represented by this repository. All nine chain/branch/finale stages and all ten Independent Arcade puzzles have acceptance proof: 19/19 solved. Accordingly, there is no unverified flag candidate presented as an open lead.
+  </div>
+
+  <p>The following leads remain useful for defensive validation and hardening, but are not required to establish the submitted solves:</p>
+  <table>
+    <thead><tr><th>Area</th><th>Open lead</th><th>Recommended next check</th></tr></thead>
+    <tbody>
+      <tr><td>Portal</td><td>Other delivery states may reopen mutable references.</td><td>Add mutation tests at queued, waiting, resumed and partial-cursor states.</td></tr>
+      <tr><td>Insider</td><td>Other realms may create additional aliases for one employee.</td><td>Deduplicate on immutable person ID across every identity provider.</td></tr>
+      <tr><td>Evidence / Cipher</td><td>Timing channels could use non-binary phase or rank alphabets.</td><td>Profile inter-arrival distributions and rank permutations across all sensors.</td></tr>
+      <tr><td>Tunnel</td><td>Other opaque-looking tokens may duplicate authority fields.</td><td>Fuzz recombination of reference, generation, purpose and session fields.</td></tr>
+      <tr><td>Implant</td><td>Twenty-nine destination-only violations remain suspicious.</td><td>Correlate them with independent module trust and deployment history.</td></tr>
+      <tr><td>Nest</td><td>Other queue cancellation/completion paths may retain stale pointers.</td><td>Instrument strong-reference transitions and allocator lifetime tests.</td></tr>
+      <tr><td>Epilogue</td><td>Production data may contain clock gaps or ambiguous overlapping leases.</td><td>Fail closed or surface an explicit “unattributable” class instead of guessing.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Final assessment</h3>
+  <p>The operation’s repeated design failure was broken binding: approval separated from bytes, account subject separated from human identity, cursor reference separated from generation, authorization flags separated from enforcement, and queued work separated from object lifetime. The successful investigation repeatedly restored those bindings through exact state reconstruction and validation.</p>
+
+  <div class="signature">
+    <div>Callsign: <strong>rupesh</strong><br>Investigator submission</div>
+    <div>Date: <strong>27 September 2026</strong><br>Final transmission / v1.0</div>
+  </div>
+</section>
+
+<section class="section appendix" id="appendix">
+  <div class="section-head">
+    <div class="kicker">Appendix A / Audit index</div>
+    <h1>Evidence, analysis and script map</h1>
+  </div>
+  <p>The repository is the reproducibility package. The following index identifies the primary entry points; challenge write-ups contain the full artifact hashes and intermediate values.</p>
+
+  <table class="tight">
+    <thead><tr><th>Challenge</th><th>Primary retained evidence</th><th>Key reproducibility material</th></tr></thead>
+    <tbody>
+      <tr><td>Recon</td><td><code>assets/mail/</code>: EML, WAV, badge, three facility photographs, custody JSONL</td><td><code>writeup.md</code> contains replay and manifest scripts; original PNG hashes retained</td></tr>
+      <tr><td>The Portal</td><td><code>assets/portal-support/</code>, <code>portal-client.js</code></td><td><code>analysis/portal-job-11-delivery.txt</code>, acquisition receipt and handover JSON</td></tr>
+      <tr><td>The Insider</td><td><code>workflow.db</code>, <code>directory.json</code>, <code>deployments.json</code></td><td>Deterministic journal replay and browser-console reproduction in <code>writeup.md</code></td></tr>
+      <tr><td>The Evidence</td><td><code>bundle.zip</code>, workstation image, PCAP, historian DB, calibration and ELF files</td><td>Ten focused scripts under <code>scripts/</code>; recovered lanes, DB and document under <code>analysis/</code></td></tr>
+      <tr><td>The Cipher</td><td>Two acquisition ZIPs, receiver PCAP, registrations, sensors and custody notes</td><td>PCAP extractor, transport/journal recovery, GCM probes and final forge under <code>scripts/</code></td></tr>
+      <tr><td>The Tunnel</td><td>Stripped client, shared library, ABI and two laboratory captures</td><td><code>scripts/solve_tunnel.py</code> with offline verification and fresh TLS solver</td></tr>
+      <tr><td>The Implant</td><td>ELF core, stripped validator, acquisition notes and Tunnel handover</td><td>Core mapper, event parser, context solver and submit helpers under <code>scripts/</code></td></tr>
+      <tr><td>Nightjar’s Nest</td><td>Stripped <code>handler</code></td><td><code>probe_nest.py</code>, <code>solve_nest.py</code>, and controlled flag submission helper</td></tr>
+      <tr><td>Epilogue</td><td><code>epilogue-training.json</code></td><td><code>epilogue_analyze.py</code>, exact detector SQL, local SQLite and evaluator result JSON</td></tr>
+      <tr><td>Independent Arcade</td><td>Ten exact JSON/WAV puzzle artifacts under <code>challenges/arcade/*/assets/</code></td><td>One write-up and one deterministic solver per puzzle; aggregate verifier at <code>challenges/arcade/verify_arcade_answers.js</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Selected integrity anchors</h3>
+  <table class="tight">
+    <thead><tr><th>Artifact</th><th>SHA-256</th></tr></thead>
+    <tbody>
+      <tr><td>Portal restricted delivery</td><td><code>3640a5148aa1a60b8293aac052f0c4fd93ebcd8b0be3f1ed2b174c1a8a59c640</code></td></tr>
+      <tr><td>Evidence bundle ZIP</td><td><code>84bc1b7c9a5da42d58b2479c2933f7843585ef97cbad6312f95a4ee7e3b2a968</code></td></tr>
+      <tr><td>Recovered Evidence document</td><td><code>4484648495b0dab0b48e533c638cdc5224f5d86d7bedbfbf8fe4cf88283681de</code></td></tr>
+      <tr><td>Cipher acquisition ZIP</td><td><code>32a85ead76f37959fad2fcdfe907426969895a7032f8bc7c71a1c327ef64193e</code></td></tr>
+      <tr><td>Tunnel maintenance client</td><td><code>a380bed19cb86766d19ecbd35ba24fef85ba060ae6084b85f9f53bd84dbdfcc4</code></td></tr>
+      <tr><td>Nightjar handler</td><td><code>c670dc665e81e251965af8623083cc89fa812cc0c8083fd85506a777793d2030</code></td></tr>
+      <tr><td>Epilogue training acquisition</td><td><code>6b8ea80305398c6eff619920b3104818b4f86c64b5ff66bcc9920b5cab5e8712</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Limitations and interpretation</h3>
+  <ul>
+    <li>Session-specific addresses, tokens, field credentials and randomized state are evidence examples, not reusable constants.</li>
+    <li>Flags are included because this is the final competition dossier; they do not replace the execution and proof record.</li>
+    <li>Browser snapshots and local profile state are supporting acquisition traces. The authoritative proof remains retained response bytes, hashes, scripts and service acceptance.</li>
+    <li>Detailed remediation, background explanations and complete code blocks remain in each stage write-up to keep this consolidated PDF navigable.</li>
+  </ul>
+
+  <div class="callout gold"><strong>End of dossier.</strong> Evidence preserved. Operation reconstructed. Verification trail retained in the accompanying repository.</div>
+</section>
+
+</main>
+</body>
+</html>
