@@ -208,3 +208,20 @@ The direct fixes are:
 4. Clear or invalidate every queue record before freeing its referenced revision.
 5. Prefer opaque handles with generation counters over raw pointers in compatibility records.
 
+## Required submission summary
+
+### Root cause
+
+A queue job stored a raw `Revision *` without taking a strong reference. `undo` changed the revision's mutable ID, so `compact` no longer recognized the queued revision as pinned and freed it while the job still referenced it. Controlled reallocation converted the dangling object into arbitrary 32-byte read/write primitives.
+
+### Reproducible PoC
+
+Run `python scripts/solve_nest.py`. The solver creates, saves, replaces, queues, undoes and compacts a revision; leaks the allocator pointer to derive the PIE base; overlaps a fake revision; copies the required delivery state; reads the session credential; and submits the documented receipt operation. The service returned the flag and the board accepted it for 600 points.
+
+### Fix / mitigation
+
+Increment a stable revision reference when queueing and release it only on completion/cancellation; never use mutable IDs for lifetime pins; invalidate queued records before free; and replace raw pointers with checked opaque handles plus generation counters.
+
+### AI usage
+
+Codex assisted with stripped-binary disassembly, C-structure reconstruction, allocator-layout reasoning, protocol implementation and exploit assertions. The exploit used only documented spool operations. Fresh ASLR/state values, service output and independent case-board acceptance verified the result.

@@ -49,3 +49,21 @@ Verifier response:
 ## Tools and AI disclosure
 
 Codex translated the idempotency rule into a deterministic replay keyed by event ID and checked the charge/refund subtotals. Playwright/CDP recovered the authorized JSON artifact and verified only the final integer-cent balance.
+
+## Required submission summary
+
+### Root cause
+
+This was a ledger-replay puzzle. The modeled accounting failure was non-idempotent processing: treating repeated delivery of one event ID as a new charge or refund changes the balance incorrectly.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. It ignores the second delivery of event IDs `12`, `4`, `8` and `0`, reports 14 unique events and calculates `final_balance_cents=30186`. The official verifier accepted `30186`.
+
+### Fix / mitigation
+
+Enforce a unique constraint on event ID, process each event and its idempotency record atomically, preserve immutable event payloads and alert if a duplicate ID arrives with different accounting fields.
+
+### AI usage
+
+Codex implemented the deterministic replay and subtotal checks. Playwright/CDP obtained the artifact and performed final verification. The event counts and arithmetic were independently recomputed.

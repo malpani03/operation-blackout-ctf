@@ -731,6 +731,24 @@ Send the Nest receipt and exact SQL to `/epilogue/grade`. A successful reproduct
 flag{epilogue_f5e952d7d3c3fc64}
 ```
 
+## Required submission summary
+
+### Root cause
+
+The underlying control gap allowed an untrusted, unauthorized module to perform a complete framed DNS transfer. Indicator-only detection would miss the behavior after identifiers changed, so the detector had to correlate stream integrity, historical host attribution, process/module timing, signer trust and final deployment authorization.
+
+### Reproducible PoC
+
+Run `python scripts/epilogue_analyze.py` and confirm 35 true positives, zero false positives and zero false negatives. Submit the exact 2,455-byte `analysis/epilogue-detector.sql`; the held-out evaluator accepted it on 240 unseen streams using one request.
+
+### Fix / mitigation
+
+Enforce module trust before load, require exact host/module deployment authorization, make approval changes authoritative, restrict DNS egress, maintain reliable clock offsets and preserve historical address/identity records for correlation.
+
+### AI usage
+
+Codex converted the contract into testable SQL predicates, built the local SQLite harness and analyzed negative families. Playwright performed the single authenticated evaluator request. Visible labels and the independent held-out evaluator controlled the result.
+
 ## 14. Detection and engineering lessons
 
 ### 14.1 Correlate behavior, not indicators

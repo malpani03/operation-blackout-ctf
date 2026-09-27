@@ -676,6 +676,24 @@ The case board then accepted:
 flag{cipher_1c06b6f19064bf9d}
 ```
 
+## Required submission summary
+
+### Root cause
+
+The recovery-journal migration reused one AES-GCM nonce under the same key for records 7 and 14. Retained known plaintext exposed the repeated counter stream, while the colliding tags allowed recovery of the GHASH authentication subkey and a valid release-record forgery.
+
+### Reproducible PoC
+
+Run `recover_cipher_transport.py`, `recover_cipher_journal.js`, then `forge_cipher_release.py` as documented in section 11. The final tuple uses nonce `18a36dba1453cb10180bc217`, ciphertext ending `...4d56398` and tag `38ac1db1c473c0c8792867714c3da7f9`. `/cipher/dispatch` returned `ok:true`.
+
+### Fix / mitigation
+
+Guarantee nonce uniqueness for the entire key lifetime, rotate keys whenever migration state is uncertain, migrate counters atomically, bind all security metadata into canonical AAD, authenticate the outer transport and minimize plaintext shadow logs.
+
+### AI usage
+
+Codex assisted with PCAP timing recovery, key-derivation tests, journal parsing and GF(2^128) code. Playwright operated only as authenticated same-origin transport. Both source tags were recomputed and the live validator—not AI output—proved the forgery.
+
 This response is the decisive cryptographic proof. The validator did not merely reveal the locally decrypted plaintext; it verified the forged GCM tag, parsed the authenticated `release` command, checked its proof, and returned the protected note.
 
 ## 11. Reproduction checklist

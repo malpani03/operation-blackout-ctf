@@ -273,6 +273,7 @@
     <a href="#nest"><span class="n">S5</span><span class="t">Nightjar’s Nest</span><span class="c">Pwn</span></a>
     <a href="#epilogue"><span class="n">EP</span><span class="t">Epilogue</span><span class="c">Detection</span></a>
     <a href="#arcade"><span class="n">IA</span><span class="t">Independent Arcade</span><span class="c">10 puzzles</span></a>
+    <a href="#requirements"><span class="n">RC</span><span class="t">Required coverage matrix</span><span class="c">19 challenges</span></a>
     <a href="#open-leads"><span class="n">OL</span><span class="t">Open leads</span><span class="c">status</span></a>
     <a href="#appendix"><span class="n">A</span><span class="t">Evidence and script index</span><span class="c">audit</span></a>
   </div>
@@ -901,6 +902,42 @@ python challenges/arcade/device-messages/scripts/solve.py</code></pre>
   <p>Codex implemented explicit dead-boundary neighbor counting and printed all three intermediate boards. An independent calculation matched the final 36 bits. Artifact SHA-256: <code>f4460afc…765be66</code>.</p>
   <div class="source-note">Individual record: <code>challenges/arcade/afterlife/writeup.md</code></div>
 </article>
+
+<section class="section" id="requirements">
+  <div class="section-head">
+    <div class="kicker">Submission compliance / 19 challenges</div>
+    <h1>Required four-point coverage matrix</h1>
+    <div class="meta"><span class="tag">root cause</span><span class="tag">reproducible PoC</span><span class="tag">fix / mitigation</span><span class="tag">AI usage</span></div>
+  </div>
+  <p class="lead">Every individual <code>writeup.md</code> now ends with a standardized “Required submission summary” using the four exact headings requested by the platform. The matrix below is a concise index; commands, evidence and verifier output remain in the linked challenge records.</p>
+
+  <table class="tight">
+    <thead><tr><th>Challenge</th><th>Root cause / solving invariant</th><th>Reproducible PoC</th><th>Fix / mitigation</th><th>AI validation</th></tr></thead>
+    <tbody>
+      <tr><td>Recon</td><td>Broken provenance and object binding</td><td>Replay custody; hash exact manifest</td><td>Immutable object/revision approvals</td><td>Visual, metadata and source checks</td></tr>
+      <tr><td>The Portal</td><td>Mutable reference reused after approval</td><td>Pause, mutate, resume, dispatch</td><td>Deliver approved immutable version/digest</td><td>403 control and delivered-version proof</td></tr>
+      <tr><td>The Insider</td><td>Subjects counted instead of people</td><td>Replay state; submit two realm tickets</td><td>Quorum on immutable person identity</td><td>Signed payload and employee-number checks</td></tr>
+      <tr><td>The Evidence</td><td>Timing channel plus residual profiles</td><td>Decode two lanes; CRC, XOR, XZ</td><td>Signed collectors, secure purge, monitoring</td><td>Calibration/ECC/hash/verifier controls</td></tr>
+      <tr><td>The Cipher</td><td>AES-GCM nonce reuse</td><td>Recover H; forge release tuple</td><td>Atomic nonce state and key rotation</td><td>Both source tags and live validator</td></tr>
+      <tr><td>The Tunnel</td><td>Cursor fields not integrity-bound together</td><td>Rebind generation in fresh TLS session</td><td>Opaque authenticated cursor/handle</td><td>Offline trace regeneration and EXPORT proof</td></tr>
+      <tr><td>The Implant</td><td>Policy flags audited but not enforced</td><td>Map unique event chain to context 35</td><td>Pre-load/connect enforcement; secret hygiene</td><td>CRC, pointers, GCM and endpoint checks</td></tr>
+      <tr><td>Nightjar’s Nest</td><td>Queued raw pointer without strong reference</td><td>Trigger UAF; derive arbitrary read/write</td><td>Stable references and checked handles</td><td>Fresh ASLR/state and board acceptance</td></tr>
+      <tr><td>Epilogue</td><td>Unauthorized module DNS-transfer chain</td><td>Run exact SQL on training and held-out sets</td><td>Trust, deployment and egress enforcement</td><td>Confusion matrix and independent evaluator</td></tr>
+      <tr><td>Route Zero</td><td>Directed shortest-path invariant</td><td>Dijkstra returns cost 49</td><td>Validate direction and nonnegative weights</td><td>All paths plus official verifier</td></tr>
+      <tr><td>Pixel Ledger</td><td>Two-axis run constraints</td><td>Enumerate 2^16 grids; assert unique</td><td>Validate clues and uniqueness</td><td>Manual clues plus official verifier</td></tr>
+      <tr><td>Deadline Lab</td><td>Weighted completion with precedence</td><td>Enumerate all 720 schedules</td><td>Validate DAG, objective and tie-break</td><td>Complete feasible search</td></tr>
+      <tr><td>Double Entry</td><td>Duplicate event delivery</td><td>Replay once per ID; balance 30186</td><td>Atomic idempotency and unique ID</td><td>Counts, subtotals and verifier</td></tr>
+      <tr><td>Beacon Six</td><td>Morse timing, not assumed DTMF</td><td>Decode 80 ms tone units</td><td>Format/timing/noise validation</td><td>Rejected DTMF hypothesis; verifier</td></tr>
+      <tr><td>Terminal Echo</td><td>Cursor overwrite semantics</td><td>Emulate documented controls</td><td>Bounded explicit terminal state machine</td><td>Manual cell trace and verifier</td></tr>
+      <tr><td>Custodian Records</td><td>Interpolation in GF(257)</td><td>Lagrange at x=0 returns 140</td><td>Reviewed field math; authenticate shares</td><td>Intermediate bases and verifier</td></tr>
+      <tr><td>Switchboard</td><td>Bidirectional XOR relationships</td><td>Propagate anchor through graph</td><td>Reject inconsistent/unanchored components</td><td>All equations and verifier</td></tr>
+      <tr><td>Device Messages</td><td>RSA moduli share prime 1051</td><td>GCD, factor, derive d, decrypt</td><td>Healthy RNG, batch GCD, OAEP</td><td>All crypto values and verifier</td></tr>
+      <tr><td>Afterlife</td><td>Simultaneous-generation invariant</td><td>Double-buffer three Life steps</td><td>Explicit boundaries and generation tests</td><td>Intermediate boards and verifier</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green"><strong>Audit result.</strong> Nineteen write-ups checked; all nineteen include the exact headings <em>Root cause</em>, <em>Reproducible PoC</em>, <em>Fix / mitigation</em>, and <em>AI usage</em>. Standalone puzzles explicitly state when no service vulnerability exists and provide correctness safeguards rather than inventing remediation.</div>
+</section>
 
 <section class="section" id="open-leads">
   <div class="section-head">

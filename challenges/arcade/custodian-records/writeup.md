@@ -52,3 +52,21 @@ Verifier response:
 ## Tools and AI disclosure
 
 Codex assisted with the finite-field implementation. Python's modular inverse was used only after checking that every denominator was non-zero modulo the supplied prime. The intermediate basis values make the result independently auditable. Playwright/CDP retrieved and verified the authorized puzzle.
+
+## Required submission summary
+
+### Root cause
+
+This was a finite-field secret-sharing reconstruction puzzle. The main correctness risk was performing ordinary rational interpolation instead of all addition, multiplication and inversion modulo the supplied prime 257.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. It evaluates the three Lagrange basis polynomials at zero, prints basis values `34`, `63`, `161` and recovers `answer=140`. The official verifier returned `ok:true`.
+
+### Fix / mitigation
+
+No service remediation applies. Secret-sharing implementations should use a reviewed finite-field library, reject duplicate x-coordinates and non-invertible denominators, enforce the threshold and authenticate shares to prevent malicious substitution.
+
+### AI usage
+
+Codex implemented the field arithmetic and intermediate audit output. Playwright/CDP retrieved and verified the puzzle. The calculation was independently checked by hand modulo 257.

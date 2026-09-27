@@ -56,3 +56,21 @@ Verifier response:
 ## Tools and AI disclosure
 
 Codex helped implement the narrow terminal state machine and made unsupported escape sequences fail explicitly. The resulting eight cells were also checked manually. Playwright/CDP retrieved the transcript and verified the final uppercase text.
+
+## Required submission summary
+
+### Root cause
+
+This was a terminal-emulation puzzle. The central interpretation error was treating backspace as erasure or reading the printable stream without applying cursor movement and overwrite semantics.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. It emulates only the documented `ESC[nG`, backspace and printable-character behavior and prints `answer=AEYIOAKN`. The official verifier accepted that visible final line.
+
+### Fix / mitigation
+
+No vulnerable service requires a fix. Terminal parsers should use an explicit state machine, enforce cursor bounds, define backspace semantics, reject unsupported escape sequences and test final screen state rather than raw input text.
+
+### AI usage
+
+Codex implemented and reviewed the state machine. Playwright/CDP retrieved the artifact and verified the result. A manual eight-column trace independently matched the solver.

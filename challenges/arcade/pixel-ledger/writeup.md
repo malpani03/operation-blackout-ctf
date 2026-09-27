@@ -52,3 +52,21 @@ The verifier returned:
 ## Tools and AI disclosure
 
 Codex assisted with encoding the clue checker and uniqueness test. The grid was also checked manually against every row and column clue. Playwright/CDP retrieved the authorized artifact and submitted only the final validated 16-bit answer.
+
+## Required submission summary
+
+### Root cause
+
+This was a nonogram puzzle rather than a security vulnerability. The likely error condition was satisfying row clues while overlooking column constraints, or returning one plausible grid without proving uniqueness.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. The solver enumerates all 65,536 grids, checks every row and column run and asserts that exactly one solution exists. It prints `answer=1110100011110001`, which the official verifier accepted.
+
+### Fix / mitigation
+
+No vulnerable service requires repair. Puzzle implementations should validate both axes, interpret `[0]` as an empty line, enforce separators between multiple runs and require a unique solution before accepting generated clues.
+
+### AI usage
+
+Codex implemented the exhaustive clue checker. Playwright/CDP retrieved the artifact and sent the final answer. Manual row/column verification and the official verifier independently controlled the result.

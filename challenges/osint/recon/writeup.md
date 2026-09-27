@@ -529,3 +529,21 @@ No credentials were extracted, no account was created, and no external target wa
 ```text
 flag{recon_e8f25be55df46671}
 ```
+
+## Required submission summary
+
+### Root cause
+
+This challenge modeled a provenance and object-binding failure: individually plausible badge, mail, custody, photograph, revision and historical-source records could yield a wrong manifest if they were not bound to the same person, asset and committed state.
+
+### Reproducible PoC
+
+Replay `transactions.jsonl` using the rules in section 5, hash the corroborated north-archive photograph and build the exact compact JSON array in section 10. SHA-256 must equal `4f3bc799d152...d4e117c97`; `/recon/verify` accepted that digest with revision `c`.
+
+### Fix / mitigation
+
+Bind approvals to immutable asset and revision identifiers, enforce optimistic-commit checks, distinguish staged from committed state, retain authoritative source identifiers, hash exact acquisition bytes and require multiple physical features before accepting image attribution.
+
+### AI usage
+
+Codex assisted with visual comparison, RIFF metadata triage, custody replay and official-source correlation. Playwright handled the authorized browser workflow after manual login. Original artifacts, transaction counts, source context and verifier acceptance independently validated the result.

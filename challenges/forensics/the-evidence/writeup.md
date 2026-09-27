@@ -536,3 +536,21 @@ Exported UTC: 2026-09-27T08:42:11Z
 Document:     4484648495b0dab0b48e533c638cdc5224f5d86d7bedbfbf8fe4cf88283681de
 Flag:         flag{evidence_23c52b9d18c24656}
 ```
+
+## Required submission summary
+
+### Root cause
+
+A profile-controlled covert channel encoded a recovery document in historian timestamp-rank permutations. Incomplete deletion with SQLite `secure_delete=OFF` left valid profiles recoverable, while clock skew and IP reuse complicated attribution.
+
+### Reproducible PoC
+
+Run the scripts listed in section 9 from triage through `recover_r9_lanes.py`. Both stored lane CRC-32 values must match, XOR must expose an XZ stream, and decompression must produce the 177-byte document with SHA-256 `4484648495b0...288361de`. The complete evidence tuple was accepted by `/evidence/verify`.
+
+### Fix / mitigation
+
+Allow only signed collector modules, detect constrained timing-rank patterns, correlate immutable task/network audit data, synchronize clocks, retain DHCP history, protect configuration profiles, use verified secure deletion and monitor abnormal DNS telemetry.
+
+### AI usage
+
+Codex assisted with container, PCAP, SQLite and timing-channel parsers plus ELF-derived inverse transforms. Browser automation acquired the authorized bundle and submitted one verified tuple. Calibration, sync, ECC, CRC, XZ structure, document hash and server acceptance independently validated the output.

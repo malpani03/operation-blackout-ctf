@@ -1012,3 +1012,21 @@ Committed device key:
 Flag:
 flag{tunnel_af287b68618f8777}
 ```
+
+## Required submission summary
+
+### Root cause
+
+The cursor represented object reference, generation and session binding as separately interpreted fields without cryptographically binding them together. An authenticated client could preserve a historical reference and live session tail while replacing only the embedded generation.
+
+### Reproducible PoC
+
+Run `python scripts/solve_tunnel.py --verify` against both laboratory traces, then `python -u scripts/solve_tunnel.py` with fresh authorized bootstrap data. The live sequence OPEN, BEGIN, SCAN, SUSPEND, EXPORT and FINISH recovered the committed device key and returned `ok:true`.
+
+### Fix / mitigation
+
+Make cursors opaque and tamper-evident over reference, generation, purpose and session; prefer random server-side handles; remove duplicated authority fields; separate enumeration from export authorization; and add negative recombination tests.
+
+### AI usage
+
+Codex assisted with disassembly, trace comparison, CRC/HMAC framing, transcript logic and the TLS solver. Browser helpers recovered authorized bootstrap material. Offline byte-for-byte regeneration, verified TLS, historical EXPORT metadata and the authenticated final response controlled the result.

@@ -59,3 +59,21 @@ Submitting `609637` to `/s/voicemail/verify` returned:
 ## Tools and AI disclosure
 
 Codex assisted with waveform triage, energy-window measurement and the repeatable Morse decoder. An initial DTMF hypothesis was rejected because no standard low/high frequency pair was present; timing runs provided the correct model. Playwright/CDP downloaded the WAV byte-for-byte and verified the derived identifier in the authenticated challenge session.
+
+## Required submission summary
+
+### Root cause
+
+This was a signal-decoding puzzle, not a security vulnerability. The main analysis failure was assuming DTMF from the six-digit objective instead of measuring the acquisition; the recording actually encoded Morse digits using keyed-tone duration.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. The decoder reads the preserved WAV, classifies 80 ms energy units, converts one-unit and three-unit tone runs to dots and dashes and prints `answer=609637`. The official verifier returned `ok:true`.
+
+### Fix / mitigation
+
+No service remediation applies. A robust decoder should verify PCM format, derive or validate timing units, tolerate bounded noise, reject ambiguous runs and retain the acquisition hash with its decoded output.
+
+### AI usage
+
+Codex assisted with signal triage and decoder construction; Playwright/CDP downloaded the WAV and verified the answer. The initial DTMF hypothesis was rejected through frequency measurement, and Morse timing plus the official verifier established the result.

@@ -52,3 +52,21 @@ Verifier response:
 ## Tools and AI disclosure
 
 Codex helped encode the relation graph and consistency check. The assignment was manually checked against all seven supplied equations. Playwright/CDP retrieved the exact artifact and verified the final ordered bit string.
+
+## Required submission summary
+
+### Root cause
+
+This was a Boolean-constraint puzzle rather than a vulnerability. The central failure mode was confusing “same/different” with absolute values or propagating relations in only one direction.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. Starting from `A=0`, it propagates bidirectional XOR constraints, rejects contradictions and prints `answer=01110011`. The official verifier accepted the ordered bits.
+
+### Fix / mitigation
+
+No service repair applies. Constraint processors should model equality/difference explicitly as XOR, traverse every connected component from a trusted anchor and reject inconsistent cycles or unanchored ambiguous components.
+
+### AI usage
+
+Codex built the relation graph and validation logic. Playwright/CDP retrieved and verified the artifact. Every resulting bit was manually substituted into all seven equations.

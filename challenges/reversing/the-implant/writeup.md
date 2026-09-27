@@ -1046,3 +1046,21 @@ valid event CRCs
 ```
 
 That combination explains why the selected context belongs to the incident rather than to ordinary maintenance, a failed operation, a damaged record or unrelated retained state.
+
+## Required submission summary
+
+### Root cause
+
+The telemetry agent recorded unsigned-module and unapproved-destination flags but treated them as audit data rather than enforced prerequisites, allowing staging and transmission to complete. Crash memory also retained an authenticated reusable resume credential recoverable with the prior-stage device key.
+
+### Reproducible PoC
+
+Run `analyze_implant.py`, `analyze_implant_events.py` and `solve_implant.js` as shown in section 13. The event parser must find exactly one full incident chain; context 35 must authenticate as owner `2419674196`, generation `3850136661`, credential `a648b8e3fbb05b5a70572e5cae51ec92`. The evidence endpoint returned `ok:true`.
+
+### Fix / mitigation
+
+Enforce signatures before module load, enforce stable destination allowlists before connect, carry and revalidate an authenticated authorization context through stage/transmit, rotate and zeroize resume credentials, restrict core dumps and protect telemetry with keyed integrity anchored outside the process.
+
+### AI usage
+
+Codex assisted with ELF/core mapping, disassembly, pointer/crypto formulas, linked-node reconstruction and event parsing. Browser/CDP acquired authorized files and submitted final evidence. CRCs, pointer bounds, chain invariants, AES-GCM tags and server acceptance controlled every important inference.

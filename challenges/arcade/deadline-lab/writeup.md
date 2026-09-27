@@ -53,3 +53,21 @@ Verifier response:
 ## Tools and AI disclosure
 
 Codex implemented the exhaustive scheduler and explicit tie-break comparison. The accepted order was validated against every feasible permutation, rather than relying only on a scheduling heuristic. Playwright/CDP retrieved the puzzle and checked the final order in the authorized session.
+
+## Required submission summary
+
+### Root cause
+
+This was a scheduling puzzle, not an exploitable defect. The principal correctness risk was applying a duration/weight heuristic without enforcing precedence or the required alphabetical tie-break.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. It enumerates all 720 orders, rejects precedence violations and computes every weighted completion cost. The unique selected result is `CBAEFD` with cost `351`; the official verifier returned `ok:true`.
+
+### Fix / mitigation
+
+No service fix applies. A production scheduler should validate that the precedence graph is acyclic, use exact optimization when the problem size permits, make tie-breaking deterministic and recompute the objective from the emitted schedule.
+
+### AI usage
+
+Codex produced the exhaustive comparison and breakdown. Playwright/CDP retrieved and verified the puzzle. Full feasible-order enumeration, not AI confidence, established optimality.

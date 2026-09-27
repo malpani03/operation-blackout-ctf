@@ -833,3 +833,21 @@ This evidence-backed process is important in a prize write-up because it disting
 ```text
 flag{insider_5594d69fa2cb5e59}
 ```
+
+## Required submission summary
+
+### Root cause
+
+Policy P19 joined directory objects by employee number but counted case-sensitive subject strings. Federated and on-prem identities for the same employee therefore appeared to be two independent reviewers, bypassing the two-person quorum without forging either signed ticket.
+
+### Reproducible PoC
+
+Replay `workflow.db` to recover revision 3, policy P19 and the exact manifest. Request signed tickets for object IDs `a99cc695bf06389f3d5a` and `ae95670c58b2db7cc59a`, submit both approvals, then call `/insider/admin`. The end-to-end script in section 9 returned `ok:true`.
+
+### Fix / mitigation
+
+Count an immutable person identifier, apply one canonicalization rule across identity realms, enforce distinct-person quorum atomically, bind approvals to exact case/revision/request/policy/root state and audit aliases and deduplication decisions.
+
+### AI usage
+
+Codex assisted with deterministic transaction replay, policy comparison and identity correlation. Playwright acquired the authorized evidence and executed documented requests after manual login. Journal state, signed payloads, shared employee number and final server response verified the conclusion.

@@ -55,3 +55,21 @@ Submitting answer `49` to `/s/welcome/verify` returned:
 ## Tools and AI disclosure
 
 Codex helped preserve the graph as JSON and implement the small Dijkstra verifier. The result was independently checked by enumerating every available `A`-to-`F` path. Playwright/CDP used the already authenticated browser session to retrieve the artifact and verify the final decimal answer. No answer was guessed and no flag submission was used as an oracle.
+
+## Required submission summary
+
+### Root cause
+
+This was a standalone computational puzzle, not a vulnerable service. The central failure mode was treating the map as undirected or choosing a locally cheap edge without calculating the complete directed-route cost.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py` from this challenge directory. It reconstructs the directed graph, runs Dijkstra's algorithm and prints `path=A->C->E->F` and `cost=49`. The official verifier returned `ok:true` for answer `49`.
+
+### Fix / mitigation
+
+No service remediation applies. A reliable implementation should preserve edge direction, reject negative weights before using Dijkstra, track finalized distances and independently compare the recovered path cost with the source artifact.
+
+### AI usage
+
+Codex assisted with the solver and documentation; Playwright/CDP retrieved and verified the authorized puzzle. The result was validated by complete path enumeration and the official answer verifier.

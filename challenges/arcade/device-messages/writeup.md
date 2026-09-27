@@ -55,3 +55,21 @@ Generate keys with a cryptographically secure, health-tested random source; run 
 ## Tools and AI disclosure
 
 Codex identified the batch-GCD test and implemented the transparent standard-library solver. Every value—factorization, totient, inverse and plaintext—was recomputed locally before verification. Playwright/CDP only retrieved the parameters and checked the final decimal plaintext.
+
+## Required submission summary
+
+### Root cause
+
+The two RSA public moduli reused prime `1051`, indicating weak or repeated key-generation randomness. Their GCD factored both keys. Textbook RSA without padding then allowed direct recovery of the first plaintext.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. It computes the GCD, factors `n1`, derives `φ(n1)=1121400` and `d=766673`, and prints `answer=760422`. The official verifier returned `ok:true`.
+
+### Fix / mitigation
+
+Use a health-tested cryptographic random source, run batch-GCD checks across generated public keys, regenerate every key sharing a factor, protect key-generation state and use an approved padding construction such as RSA-OAEP.
+
+### AI usage
+
+Codex proposed and implemented the batch-GCD recovery; Playwright/CDP retrieved and verified the parameters. Factorization, modular inverse, decryption and official acceptance independently validated the output.

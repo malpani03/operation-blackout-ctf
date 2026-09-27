@@ -56,3 +56,21 @@ Verifier response:
 ## Tools and AI disclosure
 
 Codex implemented the explicit double-buffered evolution and printed every intermediate board for review. The final grid was checked against an independent local calculation. Playwright/CDP retrieved the initial board and verified only the derived 36-bit result.
+
+## Required submission summary
+
+### Root cause
+
+This was a cellular-automaton puzzle, not a vulnerable service. The main correctness failure was updating cells in place, which violates the requirement that each generation be calculated simultaneously from the prior complete board.
+
+### Reproducible PoC
+
+Run `python scripts/solve.py`. It uses a separate output grid for each of three generations, prints every intermediate board and emits the final 36-bit answer. The official verifier returned `ok:true`.
+
+### Fix / mitigation
+
+No service remediation applies. Automaton implementations should double-buffer generations, define boundary behavior explicitly, test stable oscillators and edge cases, and validate the requested generation count and row-major serialization.
+
+### AI usage
+
+Codex implemented the double-buffered evolution; Playwright/CDP retrieved and verified the puzzle. The intermediate grids were compared with an independent calculation before submission.

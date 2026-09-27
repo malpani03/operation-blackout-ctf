@@ -525,3 +525,21 @@ For a concise repeat:
 The Records Workspace enforced direct document access correctly but failed to preserve the relationship between the approved preview and the delivered content. A collection author could approve an allowed member, pause the job, replace that member with a restricted document, and resume the old job. Because the worker dereferenced the mutable collection at delivery time, it released bytes that had never been previewed or approved for that account.
 
 The successful exploit was therefore not an object-ID bypass. It was an authorization-binding failure across the preview, approval, and delivery lifecycle.
+
+## Required submission summary
+
+### Root cause
+
+The preview and approval bound an immutable document version and digest, but the export job later dereferenced a mutable collection reference. After pause, collection mutation changed the delivered object without invalidating or rebinding the prior approval, creating a deterministic TOCTOU authorization flaw.
+
+### Reproducible PoC
+
+Confirm direct restricted reads return 403; create, preview and approve an allowed collection; pause the job at cursor zero; update the collection to the restricted incident; resume and dispatch the original job. The completed job retained the old approval but delivered `incident-d178a81cb6:1` and returned the flag.
+
+### Fix / mitigation
+
+Copy the immutable approved version and digest into the job, sign all relevant identifiers, verify the delivered bytes against that digest, invalidate pending jobs on collection mutation and re-run authorization at dispatch/resume boundaries.
+
+### AI usage
+
+Codex correlated the API contract, schema and support logs and helped preserve response hashes. Playwright navigated the authenticated workspace and executed the documented sequence. The 403 control, preview version, delivered-version mismatch, exact downloaded bytes and board acceptance independently proved the exploit.
