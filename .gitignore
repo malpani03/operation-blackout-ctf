@@ -1,0 +1,12 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local browser and automation state
+.ctf-browser-profile/
+.playwright-mcp/
+.playwright-mcp-output/
+.playwright-mcp-profile/
+
+# Locally installed analysis dependencies
+.tools/

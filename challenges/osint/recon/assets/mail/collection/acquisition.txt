@@ -1,0 +1,1 @@
+photo-1 and photo-3: independent interior acquisitions. photo-2: corridor acquisition. Original photograph bytes are retained; hash the original interior PNG.

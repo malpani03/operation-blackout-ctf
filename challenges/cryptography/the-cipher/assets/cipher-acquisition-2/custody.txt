@@ -1,0 +1,1 @@
+Packet timestamp domain is collector UTC. Payload timestamp domain is registered transmitter UTC. The receiver acquired a queued journal object during checkpoint migration. Sensor values were ordinary. Only checksum-valid objects are attributable.

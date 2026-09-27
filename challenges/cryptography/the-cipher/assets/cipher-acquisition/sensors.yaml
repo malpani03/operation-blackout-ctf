@@ -1,0 +1,75 @@
+nominal_cadence_ms: 500
+jitter_tolerance_ms: 15
+sensors:
+  - id: F-15B9
+    cal: 0xce
+    signed: true
+  - id: F-1698
+    cal: 0x58
+    signed: true
+  - id: F-18C8
+    cal: 0x49
+    signed: true
+  - id: F-2DD4
+    cal: 0x78
+    signed: true
+  - id: F-2F13
+    cal: 0x1f
+    signed: true
+  - id: F-2F9E
+    cal: 0x53
+    signed: true
+  - id: F-3DA4
+    cal: 0x51
+    signed: true
+  - id: F-3F5D
+    cal: 0xb5
+    signed: true
+  - id: F-461D
+    cal: 0x34
+    signed: true
+  - id: F-47DD
+    cal: 0x4e
+    signed: true
+  - id: F-50E5
+    cal: 0x3e
+    signed: true
+  - id: F-53F5
+    cal: 0x6e
+    signed: true
+  - id: F-612D
+    cal: 0x95
+    signed: true
+  - id: F-7506
+    cal: 0xfb
+    signed: true
+  - id: F-7C17
+    cal: 0x8b
+    signed: true
+  - id: F-7E55
+    cal: 0xbb
+    signed: true
+  - id: F-8E05
+    cal: 0xec
+    signed: true
+  - id: F-A10D
+    cal: 0xeb
+    signed: true
+  - id: F-AC63
+    cal: 0x12
+    signed: true
+  - id: F-BD8F
+    cal: 0xe4
+    signed: true
+  - id: F-C687
+    cal: 0x13
+    signed: true
+  - id: F-C842
+    cal: 0x5a
+    signed: true
+  - id: F-EDFF
+    cal: 0xc3
+    signed: true
+  - id: F-FC48
+    cal: 0x38
+    signed: true

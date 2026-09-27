@@ -1,0 +1,12 @@
+{
+  "evaluation_requests_used": 1,
+  "training_precision": 1.0,
+  "training_recall": 1.0,
+  "validator_ok": true,
+  "flag": "flag{epilogue_f5e952d7d3c3fc64}",
+  "case_board": {
+    "correct": true,
+    "points": 220,
+    "first_blood": true
+  }
+}

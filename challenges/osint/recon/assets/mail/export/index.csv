@@ -1,0 +1,6 @@
+message_id,in_reply_to,mailbox,attachment
+m-113,,archive-04,draft.json
+m-220,,archive-17,intake.json
+m-221,m-220,archive-17,revision-a.json
+m-222,m-221,archive-17,approval.json
+m-310,,archive-17,other.json

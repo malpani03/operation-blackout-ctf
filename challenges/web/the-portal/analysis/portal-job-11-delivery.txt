@@ -1,0 +1,7 @@
+Incident HX-1977
+Custodian: Records Office
+Evidence ledger: aa7273b446af3fcc3237ee05
+The export delivery log is the acquisition record.
+
+Acquisition receipt
+{"ok": true, "flag": "flag{portal_1285d111fcc3511d}", "notice": "Submit this flag on the case board. Your case handover becomes available there after solve or skip."}

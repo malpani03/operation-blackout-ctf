@@ -1,0 +1,1 @@
+UI offset +05:30. Measurement: reference UTC 2026-09-27T08:40:00Z; workstation display 2026-09-27 14:12:17. Clock setting remained unchanged through acquisition.

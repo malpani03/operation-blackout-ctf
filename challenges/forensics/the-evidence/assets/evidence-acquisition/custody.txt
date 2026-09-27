@@ -1,0 +1,1 @@
+Recorded times are acquisition-source times. Preserve originals, record conversions and corroborate machine ownership before attribution. The submitted export timestamp is the archive-export action, not process startup.

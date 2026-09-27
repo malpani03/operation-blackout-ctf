@@ -1,0 +1,1 @@
+Recovery database acquisition original path reception.db. Its separate SQLite write-ahead journal was captured while the process was active. Do not treat an uncommitted page as an event. FAT names shortened at collection; restore original DB/WAL pairing during analysis.

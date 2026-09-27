@@ -1,0 +1,94 @@
+{
+  "/api/case/tunnel": {
+    "status": 200,
+    "body": {
+      "slug": "tunnel",
+      "title": "The retained device journal",
+      "brief": "A field maintenance appliance survived the outage with a retained recovery journal. Investigators acquired client code and laboratory conversations, including a failed recovery and an ordinary current snapshot. Neither capture can simply be replayed into a fresh session.\n\nInvestigate the acquired client, laboratory records and live appliance. Establish whether the device material associated with this case can be recovered through its maintenance interface.\n\nRecover the committed device material through a valid live exchange. Use the console connection details and field token, with the Insider handover as the maintenance credential. Each connection is isolated and short-lived; local artifact analysis does not consume flag submissions.",
+      "objective": "Recover committed device material through the authenticated appliance exchange.",
+      "links": [
+        {
+          "label": "Maintenance appliance",
+          "url": "/tunnel/"
+        }
+      ]
+    }
+  },
+  "/api/handover/insider": {
+    "status": 200,
+    "body": {
+      "case": "insider",
+      "receipt": "7f742f77f5d76059453a4b3e0b99e37628258eba8216d17a125da4676cc4544a",
+      "revision": 5
+    }
+  },
+  "/api/fieldtoken": {
+    "status": 200,
+    "body": {
+      "player": "rupesh",
+      "field_token": "24615f5322b2e341debc09aa9bdf3a15"
+    }
+  },
+  "/api/state": {
+    "status": 200,
+    "body": {
+      "dashboard_version": 2,
+      "flag_submissions_used": 14,
+      "flag_submissions_limit": 200,
+      "flag_submissions_remaining": 186,
+      "player": "rupesh",
+      "points": 2460,
+      "solved": [
+        "badge",
+        "entropy",
+        "evidence",
+        "helpdesk",
+        "insider",
+        "iris",
+        "legacy",
+        "portal",
+        "printq",
+        "recon",
+        "rota",
+        "vending",
+        "voicemail",
+        "welcome"
+      ],
+      "skipped": [],
+      "unlocked": [
+        "badge",
+        "cipher",
+        "entropy",
+        "evidence",
+        "helpdesk",
+        "insider",
+        "iris",
+        "legacy",
+        "portal",
+        "printq",
+        "recon",
+        "rota",
+        "tunnel",
+        "vending",
+        "voicemail",
+        "welcome"
+      ],
+      "event": "open",
+      "start": 1790483400,
+      "close": 1790519400,
+      "epilogue_open": 1790508600,
+      "writeup_close": 1790526600,
+      "connections": {
+        "tunnel": 9405,
+        "nest": 9305,
+        "tls": true,
+        "host": "65.21.179.193",
+        "server_name": "ctf.roshancodes.com"
+      },
+      "mode": "production",
+      "is_organizer": false,
+      "both_branch_bonus": 0,
+      "finale_intel": null
+    }
+  }
+}

@@ -1,0 +1,3 @@
+WS-318: A collection author asks whether membership grants content access. Resolution: directory visibility and collection membership do not grant document reads.
+WS-344: Delivery disconnected after scheduling. Resolution: pause the queued delivery and resume it after transport is available. Completed jobs cannot resume.
+WS-356: A colleague supplied an approval from a different workspace. Resolution: approval signatures and object identities are workspace scoped.

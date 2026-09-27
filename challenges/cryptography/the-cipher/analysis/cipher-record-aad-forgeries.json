@@ -1,0 +1,62 @@
+[
+  {
+    "format": "json+base",
+    "root": 0,
+    "h": "3513c18aa54462640f14d3abccaa34b9",
+    "mapping": "record7-is-peek",
+    "target_metadata": "seq7",
+    "nonce": "18a36dba1453cb10180bc217",
+    "ciphertext": "1b944dd2b1309d9598ea8bb1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278dec7f42b79bb6f464d56398",
+    "tag": "e4ed24bb0068126c88fd9739969018ba"
+  },
+  {
+    "format": "json+base",
+    "root": 0,
+    "h": "3513c18aa54462640f14d3abccaa34b9",
+    "mapping": "record7-is-peek",
+    "target_metadata": "seq14",
+    "nonce": "18a36dba1453cb10180bc217",
+    "ciphertext": "1b944dd2b1309d9598ea8bb1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278dec7f42b79bb6f464d56398",
+    "tag": "042c47df323f55f22f7915356a954ff3"
+  },
+  {
+    "format": "json+base",
+    "root": 0,
+    "h": "3513c18aa54462640f14d3abccaa34b9",
+    "mapping": "record7-is-peek",
+    "target_metadata": "seq19",
+    "nonce": "18a36dba1453cb10180bc217",
+    "ciphertext": "1b944dd2b1309d9598ea8bb1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278dec7f42b79bb6f464d56398",
+    "tag": "72e7a7f493001b2b60d24fc9b16ed6bf"
+  },
+  {
+    "format": "json+base",
+    "root": 0,
+    "h": "3513c18aa54462640f14d3abccaa34b9",
+    "mapping": "record7-is-list",
+    "target_metadata": "seq7",
+    "nonce": "18a36dba1453cb10180bc217",
+    "ciphertext": "1b944dd2b1309d8994fc94b1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278dec7f42b79bb6f464d56398",
+    "tag": "ebbb439853e81f23f23bde3569ec4cf9"
+  },
+  {
+    "format": "json+base",
+    "root": 0,
+    "h": "3513c18aa54462640f14d3abccaa34b9",
+    "mapping": "record7-is-list",
+    "target_metadata": "seq14",
+    "nonce": "18a36dba1453cb10180bc217",
+    "ciphertext": "1b944dd2b1309d8994fc94b1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278dec7f42b79bb6f464d56398",
+    "tag": "0b7a20fc61bf58bd55bf5c3995e91bb0"
+  },
+  {
+    "format": "json+base",
+    "root": 0,
+    "h": "3513c18aa54462640f14d3abccaa34b9",
+    "mapping": "record7-is-list",
+    "target_metadata": "seq19",
+    "nonce": "18a36dba1453cb10180bc217",
+    "ciphertext": "1b944dd2b1309d8994fc94b1be7972055ce673a951e8631f53cfef01b0f02656ff90f8278dec7f42b79bb6f464d56398",
+    "tag": "7db1c0d7c08016641a1406c54e1282fc"
+  }
+]
